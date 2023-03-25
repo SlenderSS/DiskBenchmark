@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:DiskBenchmark"
              StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="Resources/Styles/PageStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ImageStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
+                <!--<ResourceDictionary Source="Resources/Utilities/DataTemplate.xaml" />-->
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

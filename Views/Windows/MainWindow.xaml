@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:DiskBenchmark"
         xmlns:cmd="clr-namespace:DiskBenchmark.Infrastructure.Commands"
         xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
+       
+        
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Height="450"
@@ -27,24 +29,98 @@
 
 
     <Grid>
-        <Border  CornerRadius="20" Background="#FF243353"/>
+        <Border  CornerRadius="20" Background="#272B2F"/>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
                 <RowDefinition Height="760*"/>
             </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="700*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="1">
+                    <Button Style="{StaticResource ExitApp}"
+                            Command="{StaticResource CloseAppCommand}"/>
+                </DockPanel>
+                
+            </Grid>
+
+
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="220"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-            </Grid>              
-            
-            
+                
+                <Grid HorizontalAlignment="Left"
+                  Width="228">
+
+                    <Border Background="#272B2F"
+                        CornerRadius="20,0,0,20" />
+
+                    <StackPanel Height="400"
+                            Width="228">
+
+                        <!--// Home //-->
+
+                        <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}">
+
+                            <Grid>
+                                <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}"/>
+                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+
+                            </Grid>
+
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}">
+
+                            <Grid>
+                                <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}"/>
+                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+
+                            </Grid>
+
+                        </RadioButton>
+                        <!--// Customer //-->
+
+
+
+                        <!--// Orders //-->
+
+
+
+                        <!--// Transactions //-->
+
+
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="109*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" Grid.ColumnSpan="2" />
+
+                </Grid>
+
+            </Grid>
+
+
         </Grid>
-        
-        
+
+
 
 
     </Grid>
