@@ -6,23 +6,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using DiskBenchmark.ViewModels.Base;
 
 namespace DiskBenchmark.ViewModels
 {
-    internal class MainWIndowViewModel
+    internal class MainWIndowViewModel: ViewModel
     {
+        #region Title
+        private string _Title = "Disk Benchmark";
+        public string MyProperty { get => _Title; set => Set(ref _Title, value); }
+
+        #endregion
 
         #region Commands
 
         #region CloseApp
-        private ICommand CloseAppCommand { get; }
+        //public ICommand CloseAppCommand { get; }
 
 
-        private void OnCloseAppCommandExecuted(object p)
-        {
-            Application.Current.Shutdown();
-        }
-        private bool CanCloseAppCommandExecute(object p) => true;
+        //private void OnCloseAppCommandExecuted(object p)
+        //{
+        //    Application.Current.Shutdown();
+        //}
+        //private bool CanCloseAppCommandExecute(object p) => true;
 
 
         #endregion
@@ -31,7 +37,7 @@ namespace DiskBenchmark.ViewModels
         public MainWIndowViewModel()
         {
             #region Commands
-            CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
+           // CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
             #endregion
 
 
