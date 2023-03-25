@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiskBenchmark.Infrastructure.Commands
+namespace DiskBenchmark.ViewModels
 {
-    internal class Command : 
+    internal class MainWIndowViewModel
     {
+
+        public MainWIndowViewModel()
+        {
+
+        }
     }
 }
