@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:DiskBenchmark"
         xmlns:cmd="clr-namespace:DiskBenchmark.Infrastructure.Commands"
         xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
-        
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="{Binding Title}"
         Height="450"
         Width="800"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -24,10 +24,26 @@
     <Window.DataContext>
         <vm:MainWIndowViewModel/>
     </Window.DataContext>
-    
-    
+
+
     <Grid>
-        <Border CornerRadius="20" Background="#FF243353"/>
+        <Border  CornerRadius="20" Background="#FF243353"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="760*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>              
+            
+            
+        </Grid>
+        
         
 
 

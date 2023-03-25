@@ -14,7 +14,7 @@ namespace DiskBenchmark.ViewModels
     {
         #region Title
         private string _Title = "Disk Benchmark";
-        public string MyProperty { get => _Title; set => Set(ref _Title, value); }
+        public string Title { get => _Title; set => Set(ref _Title, value); }
 
         #endregion
 
