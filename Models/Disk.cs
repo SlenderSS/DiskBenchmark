@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,11 @@ namespace DiskBenchmark.Models
         public string SerialNumber { get; set; }
         public long Size { get; set; }
         public long FreeSpace { get; set; }
-        public List<Partition> Partitions { get; set; }
+        public ObservableCollection<Partition> Partitions { get; set; }
 
         public Disk()
         {
-            Partitions = new List<Partition>();
+            Partitions = new ObservableCollection<Partition>();
         }
     }
 }

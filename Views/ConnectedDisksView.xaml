@@ -14,10 +14,8 @@
             <ListBox Margin="40" Background="#FF383A40"  BorderBrush="#FF343842" BorderThickness="5" OpacityMask="#FF5D5858">
                 <ListBox.Template>
                     <ControlTemplate>
-                        <Border BorderBrush="#272B2F" Background="#FF343638" BorderThickness="2" CornerRadius="5">
-                            <Border.BitmapEffect>
-                                <DropShadowBitmapEffect ShadowDepth="5"/>
-                            </Border.BitmapEffect>
+                        <Border BorderBrush="#272B2F" Background="#FF343638" BorderThickness="5" CornerRadius="40">
+                            
                             <ItemsPresenter/>
                         </Border>
                     </ControlTemplate>

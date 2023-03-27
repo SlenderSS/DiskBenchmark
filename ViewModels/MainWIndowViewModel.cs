@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using DiskBenchmark.ViewModels.Base;
+using System.Collections.ObjectModel;
+using DiskBenchmark.Models;
 
 namespace DiskBenchmark.ViewModels
 {
@@ -17,6 +19,9 @@ namespace DiskBenchmark.ViewModels
         public string Title { get => _Title; set => Set(ref _Title, value); }
 
         #endregion
+
+
+        public ObservableCollection<Disk> disks { get; set; }
 
         #region Commands
 
@@ -33,11 +38,23 @@ namespace DiskBenchmark.ViewModels
 
         #endregion
 
+        #region GetDisks
+
+        public ICommand GetDisks { get; }
+        private void OnGetDisksCommandExecuted(object p)
+        {
+
+        }
+        private bool CanGetDisksCommandExecute(object p) => true;
+        #endregion
+
+
         #endregion
         public MainWIndowViewModel()
         {
             #region Commands
            // CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
+
             #endregion
 
 

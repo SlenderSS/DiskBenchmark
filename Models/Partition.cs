@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DiskBenchmark.Models
 {
@@ -7,11 +8,11 @@ namespace DiskBenchmark.Models
         public string Caption { get; set; }
         public string DeviceID { get; set; }
         public long Size { get; set; }
-        public List<LogicalDisk> LogicalDisks { get; set; }
+        public ObservableCollection<LogicalDisk> LogicalDisks { get; set; }
 
         public Partition()
         {
-            LogicalDisks = new List<LogicalDisk>();
+            LogicalDisks = new ObservableCollection<LogicalDisk>();
         }
     }
 }
