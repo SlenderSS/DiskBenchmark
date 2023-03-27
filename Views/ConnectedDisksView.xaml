@@ -11,8 +11,17 @@
     <Grid>
         <Border Background="#272B2F" CornerRadius="0,0,20,0"/>
         <Grid>
-            <ListBox Margin="40" Background="#FF393D49"  BorderBrush="#FF363C4B" BorderThickness="5" OpacityMask="#FF5D5858">
-                
+            <ListBox Margin="40" Background="#FF383A40"  BorderBrush="#FF343842" BorderThickness="5" OpacityMask="#FF5D5858">
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <Border BorderBrush="#272B2F" Background="#FF343638" BorderThickness="2" CornerRadius="5">
+                            <Border.BitmapEffect>
+                                <DropShadowBitmapEffect ShadowDepth="5"/>
+                            </Border.BitmapEffect>
+                            <ItemsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </ListBox.Template>
             </ListBox>
         </Grid>
     </Grid>
