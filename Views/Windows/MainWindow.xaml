@@ -10,7 +10,7 @@
         
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Height="450"
+        Height="550"
         Width="800"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
@@ -71,8 +71,8 @@
                               Command="{Binding HomeCommand}">
 
                             <Grid>
-                                <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}"/>
-                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+                                <fa:ImageAwesome Icon="InfoCircle" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Connected disks" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
@@ -82,15 +82,24 @@
                               Command="{Binding HomeCommand}">
 
                             <Grid>
-                                <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}"/>
-                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+                                <fa:ImageAwesome Icon="Tasks" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Disks information" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
                         </RadioButton>
                         <!--// Customer //-->
 
+                        <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}">
 
+                            <Grid>
+                                <fa:ImageAwesome Icon="Tasks" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Disks Benchmark" Style="{StaticResource Text_Style}" />
+
+                            </Grid>
+
+                        </RadioButton>
 
                         <!--// Orders //-->
 
