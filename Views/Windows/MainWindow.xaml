@@ -146,7 +146,7 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" Margin="0,10,5,10">
                                                         <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style}"/>
-                                                        <ProgressBar Value="{Binding UsedSpace}" Maximum="{Binding Size}" Width="260" Margin="20,0"/>
+                                                        <ProgressBar Value="{Binding UsedSpace}" Maximum="{Binding Size}" BorderThickness="2" BorderBrush="Gray" Width="260" Margin="20,0"/>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
