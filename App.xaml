@@ -15,7 +15,8 @@
                 <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ProgressBarStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ScrollBarStyle.xaml" />
-                <!--<ResourceDictionary Source="Resources/Utilities/DataTemplate.xaml" />-->
+                <ResourceDictionary Source="Resources/DataTemplates/DataTemplate.xaml" />
+               
 
             </ResourceDictionary.MergedDictionaries>
 

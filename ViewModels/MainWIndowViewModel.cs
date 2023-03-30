@@ -21,18 +21,22 @@ namespace DiskBenchmark.ViewModels
 
         #endregion
 
-        private List<Disk> _disks;
+       
 
-        public List<Disk> Disks
-        {
-            get => _disks;
-            set
+        private object _currentView;
+        public object CurrentView { get => _currentView; set 
             {
-                _disks = value;
-                OnPropertyChanged(nameof(Disks));
+                _currentView = value;
+                OnPropertyChanged();
             }
         }
 
+        public ICommand HomeCommand { get; set; }
+        public ICommand DisksListCommand { get; set; }
+
+
+        private void Home(object obj) => CurrentView = new HomeViewModel();
+        private void DisksList(object obj) => CurrentView = new ConnectedDisksViewModel();
         //public IEnumerable<Disk> TestDisks1 => Enumerable.Range(1, 9)
         //   .Select(d => new Disk
         //   {
@@ -93,13 +97,14 @@ namespace DiskBenchmark.ViewModels
         public MainWIndowViewModel()
         {
             #region Commands
-            // CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
-
+            //CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
+            HomeCommand = new LambdaCommand(Home);
+            DisksListCommand = new LambdaCommand(DisksList);
 
             #endregion
 
-            Disks = Services.DisksList.GetDisks();
-
+            
+            CurrentView = new HomeViewModel();
         }
     }
 }

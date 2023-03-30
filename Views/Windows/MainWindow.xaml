@@ -7,6 +7,7 @@
         xmlns:cmd="clr-namespace:DiskBenchmark.Infrastructure.Commands"
         xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
         xmlns:models="clr-namespace:DiskBenchmark.Models"
+        xmlns:convert="clr-namespace:DiskBenchmark.Infrastructure.Converters"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Height="550"
@@ -18,6 +19,7 @@
       >
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
+        <convert:BytesToGigabytes x:Key="BytesConverter"/>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="Q" Command="{StaticResource CloseAppCommand}"/>
@@ -63,13 +65,22 @@
 
                     <StackPanel Height="400"
                             Width="228">
-
-               
                         <RadioButton Style="{StaticResource BtnStyle}"
                               Command="{Binding HomeCommand}">
 
                             <Grid>
-                                <fa:ImageAwesome Icon="InfoCircle" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+
+                            </Grid>
+
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource BtnStyle}"
+                              Command="{Binding DisksListCommand}">
+
+                            <Grid>
+                                <fa:ImageAwesome Icon="Inbox" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
                                 <TextBlock Text="Connected disks" Style="{StaticResource Text_Style}" />
 
                             </Grid>
@@ -77,10 +88,10 @@
                         </RadioButton>
 
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}">
+                              Command="{Binding DisksListCommand}">
 
                             <Grid>
-                                <fa:ImageAwesome Icon="Tasks" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <fa:ImageAwesome Icon="InfoCircle" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
                                 <TextBlock Text="Disks information" Style="{StaticResource Text_Style}" />
 
                             </Grid>
@@ -91,7 +102,7 @@
                               Command="{Binding HomeCommand}">
 
                             <Grid>
-                                <fa:ImageAwesome Icon="Tasks" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
+                                <fa:ImageAwesome Icon="Connectdevelop" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
                                 <TextBlock Text="Disks Benchmark" Style="{StaticResource Text_Style}" />
 
                             </Grid>
@@ -109,7 +120,7 @@
 
 
 
-                    <ListBox Margin="20,10,20,40" Background="#FF383A40" 
+                    <!--<ListBox Margin="20,10,20,40" Background="#FF383A40" 
                                 ItemsSource="{Binding Disks}" 
                                 BorderBrush="#FF343842"
                                 BorderThickness="5"
@@ -129,21 +140,29 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="models:Disk" >
                                 <Border BorderBrush="Transparent" Background="#FF2D3136" BorderThickness="1" CornerRadius="20" Width="500" Margin="0,20,0,20">
-                                    <StackPanel Orientation="Vertical" Margin="20,20,10,20">
+                                    <StackPanel Orientation="Vertical" Margin="20,20,10,5">
+                                       
                                         <DockPanel>
 
-                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Caption}" Style="{StaticResource Text_Style2}"/>
-                                            <!--<TextBlock Text="{Binding DeviceID}" Style="{StaticResource Text_Style2}"/>-->
-                                            <TextBlock DockPanel.Dock="Right" Text="{Binding SerialNumber}" Style="{StaticResource Text_Style2}" />
+                                            <StackPanel DockPanel.Dock="Left" >
+                                                <TextBlock Text="Caption name:" Style="{StaticResource Text_Style2}"/>
+                                                <TextBlock Text="Serial number:" Style="{StaticResource Text_Style2}" />
 
+                                            </StackPanel>
+                                            <StackPanel DockPanel.Dock="Right" Margin="20,0,0,0">
+                                                <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style2}"/>
+                                                <TextBlock Text="{Binding SerialNumber}" Style="{StaticResource Text_Style2}" />
+
+                                            </StackPanel>
+                                           
                                         </DockPanel>
 
                                         <ListBox ItemsSource="{Binding LogicalDisks}" Background="Transparent" BorderBrush="Transparent">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal" Margin="0,10,5,10" Height="30">
-                                                        <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style}"/>
-                                                        <ProgressBar Value="{Binding UsedSpace}"                   
+                                                    <StackPanel Orientation="Horizontal" Margin="0,10,5,5" Height="30">
+                                                        <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style3}"/>
+                                                        <ProgressBar Value="{Binding UsedSpace}"                
                                                                      Maximum="{Binding Size}"
                                                                      Width="260" 
                                                                      Margin="20,5">
@@ -151,8 +170,9 @@
                                                                 <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,2,260,15"/>
                                                             </ProgressBar.Clip>
                                                         </ProgressBar>
+                                                        
                                                     </StackPanel>
-
+                                                   
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>
                                         </ListBox>
@@ -161,9 +181,9 @@
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                    </ListBox>
-                    <!--<ContentControl x:Name="Pages"
-                                Content="{Binding CurrentView}" Grid.ColumnSpan="2" />-->
+                    </ListBox>-->
+                    <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" Grid.ColumnSpan="2" />
 
                 </Grid>
 

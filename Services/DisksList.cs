@@ -15,9 +15,9 @@ namespace DiskBenchmark.Services
        
 
 
-        public static List<Disk> GetDisks()
+        public static ObservableCollection<Disk> GetDisks()
         {
-                List<Disk> disks = new List<Disk>();
+                ObservableCollection<Disk> disks = new ObservableCollection<Disk>();
                 ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
 
                 ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");

@@ -12,7 +12,16 @@ namespace DiskBenchmark.ViewModels
     {
         private MainWIndowViewModel _mainWindow;
         public List<Disk> TestDisks  = new List<Disk>();
-        public ObservableCollection<Disk> disks { get; private set; }
+        private ObservableCollection<Disk> _disks;
+        public ObservableCollection<Disk> Disks 
+        {
+            get => _disks; 
+            set 
+            {
+                _disks = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         //public IEnumerable<Disk> TestDisks1 => Enumerable.Range(1, 10)
@@ -71,7 +80,14 @@ namespace DiskBenchmark.ViewModels
         public ConnectedDisksViewModel(MainWIndowViewModel mainWindow)
         {
             this._mainWindow = mainWindow;
-           // disks = mainWindow.disks;
+            Task.Factory.StartNew(() => 
+            {
+                while (true)
+                {
+                    Disks = new ObservableCollection<Disk>(Services.DisksList.GetDisks());
+                    Task.Delay(1000);
+                }
+            });
 
 
            

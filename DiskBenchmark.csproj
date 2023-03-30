@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\DataTemplates\DataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\ButtonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +91,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DiskDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,15 +110,24 @@
     <Compile Include="Infrastructure\Commands\CloseAppCommand.cs" />
     <Compile Include="Infrastructure\Commands\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Infrastructure\Converters\BytesToGigabytes.cs" />
+    <Compile Include="Infrastructure\Converters\Converter.cs" />
     <Compile Include="Models\Disk.cs" />
     <Compile Include="Models\LogicalDisk.cs" />
-    <Compile Include="Models\Partition.cs" />
     <Compile Include="Services\DisksList.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
+    <Compile Include="ViewModels\DiskDetailsViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWIndowViewModel.cs" />
     <Compile Include="Views\ConnectedDisksView.xaml.cs">
       <DependentUpon>ConnectedDisksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiskDetailsView.xaml.cs">
+      <DependentUpon>DiskDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -142,7 +163,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Images\Drive.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\shutdown_def.png" />
     <Resource Include="Resources\Images\shutdown_mo.png" />
