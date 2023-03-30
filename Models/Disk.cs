@@ -13,12 +13,12 @@ namespace DiskBenchmark.Models
         public string DeviceID { get; set; }
         public string SerialNumber { get; set; }
         public long Size { get; set; }
-        public long FreeSpace { get; set; }
-        public ObservableCollection<Partition> Partitions { get; set; }
-
+        public long TotalUsedSpace { get; set; }
+        public List<LogicalDisk> LogicalDisks { get; set; }
         public Disk()
         {
-            Partitions = new ObservableCollection<Partition>();
+
+            LogicalDisks = new List<LogicalDisk>();
         }
     }
 }
