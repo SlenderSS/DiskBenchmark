@@ -16,11 +16,12 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        
+
       >
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
+        <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="Q" Command="{StaticResource CloseAppCommand}"/>
@@ -31,7 +32,11 @@
 
 
     <Grid>
-        <Border  CornerRadius="20" Background="#272B2F"/>
+        <Grid.InputBindings>
+            <MouseBinding Gesture="LeftClick" Command="{StaticResource MoveWindowCommand}"/>
+        </Grid.InputBindings>
+
+        <Border  CornerRadius="20" Background="#272B2F" />
 
         <Grid>
             <Grid.RowDefinitions>

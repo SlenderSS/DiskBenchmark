@@ -49,34 +49,11 @@ namespace DiskBenchmark.ViewModels
         //        })
         //    });
 
-        public string TestText = "Test";
+       
 
         public ConnectedDisksViewModel(): this(null)
         {
-            //List<LogicalDisk> logicalDisks = new List<LogicalDisk>();
-            //logicalDisks.Add(new LogicalDisk()
-            //{
-            //    Caption = "C:/",
-            //    FreeSpace = 500000,
-            //    Size = 1000000
-            //});
-
-            //List<Partition> partitions = new List<Partition>();
-            //partitions.Add(new Partition()
-            //{
-            //    Size = 5000000,
-            //    Caption = "Part#1",
-            //    LogicalDisks = new ObservableCollection<LogicalDisk>(logicalDisks)
-            //}); ;
-
-            //TestDisks.Add(new Disk()
-            //{
-            //    Caption = "Test Disk Caption",
-            //    DeviceID = "#0",
-            //    FreeSpace = 100000000,
-            //    Size = 100000000000,
-            //    Partitions = new ObservableCollection<Partition>(partitions)
-            //});
+           
         }
         public ConnectedDisksViewModel(MainWIndowViewModel mainWindow)
         {

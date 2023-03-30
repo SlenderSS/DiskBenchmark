@@ -8,5 +8,9 @@ namespace DiskBenchmark.ViewModels
 {
     internal class DiskDetailsViewModel : Base.ViewModel
     {
+        public DiskDetailsViewModel()
+        {
+
+        }
     }
 }

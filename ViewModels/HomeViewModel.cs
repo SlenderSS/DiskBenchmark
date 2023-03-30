@@ -8,5 +8,13 @@ namespace DiskBenchmark.ViewModels
 {
     internal class HomeViewModel : Base.ViewModel
     {
+        public HomeViewModel() : this(null)
+        {
+
+        }
+        public HomeViewModel(MainWIndowViewModel mainWIndowViewModel)
+        {
+
+        }
     }
 }
