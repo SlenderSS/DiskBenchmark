@@ -16,6 +16,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
+        
       >
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
@@ -88,7 +89,7 @@
                         </RadioButton>
 
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding DisksListCommand}">
+                              Command="{Binding DiskDetailsCommand}">
 
                             <Grid>
                                 <fa:ImageAwesome Icon="InfoCircle" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>

@@ -11,11 +11,7 @@ namespace DiskBenchmark.Services
 {
     internal class DisksList
     {
-
-       
-
-
-        public static ObservableCollection<Disk> GetDisks()
+        public ObservableCollection<Disk> GetDisks()
         {
                 ObservableCollection<Disk> disks = new ObservableCollection<Disk>();
                 ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");

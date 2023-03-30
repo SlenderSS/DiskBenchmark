@@ -33,10 +33,15 @@ namespace DiskBenchmark.ViewModels
 
         public ICommand HomeCommand { get; set; }
         public ICommand DisksListCommand { get; set; }
+        public ICommand DiskDetailsCommand { get; set; }
 
 
         private void Home(object obj) => CurrentView = new HomeViewModel();
         private void DisksList(object obj) => CurrentView = new ConnectedDisksViewModel();
+        private void DiskDetails(object obj) => CurrentView = new DiskDetailsViewModel();
+
+
+
         //public IEnumerable<Disk> TestDisks1 => Enumerable.Range(1, 9)
         //   .Select(d => new Disk
         //   {
@@ -100,7 +105,7 @@ namespace DiskBenchmark.ViewModels
             //CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
             HomeCommand = new LambdaCommand(Home);
             DisksListCommand = new LambdaCommand(DisksList);
-
+            DiskDetailsCommand = new LambdaCommand(DiskDetails);
             #endregion
 
             

@@ -1,4 +1,5 @@
 ﻿using DiskBenchmark.Models;
+using DiskBenchmark.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -80,11 +81,12 @@ namespace DiskBenchmark.ViewModels
         public ConnectedDisksViewModel(MainWIndowViewModel mainWindow)
         {
             this._mainWindow = mainWindow;
+            DisksList disksList = new DisksList();
             Task.Factory.StartNew(() => 
             {
                 while (true)
                 {
-                    Disks = new ObservableCollection<Disk>(Services.DisksList.GetDisks());
+                    Disks = new ObservableCollection<Disk>(disksList.GetDisks());
                     Task.Delay(1000);
                 }
             });
