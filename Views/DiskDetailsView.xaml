@@ -9,7 +9,12 @@
     <Grid>
         <Border Background="#272B2F" CornerRadius="0,0,20,0"/>
         <Grid>
-            <TextBlock Text="Home Page" FontSize="50" Style="{StaticResource Text_Style2}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="0" Margin="150,30" />
+
         </Grid>
     </Grid>
 </UserControl>
