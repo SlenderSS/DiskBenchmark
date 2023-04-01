@@ -51,6 +51,7 @@
                 Value="/Fonts/#Rubik-Medium" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
+       
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="Foreground"
@@ -58,6 +59,6 @@
         <Setter Property="FontSize"
                 Value="15" />
         <Setter Property="Margin"
-                Value="5,0,0,0" />
+                Value="5,5,0,0" />
     </Style>
 </ResourceDictionary>
