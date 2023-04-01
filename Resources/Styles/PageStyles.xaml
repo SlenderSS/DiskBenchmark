@@ -3,12 +3,12 @@
     <Style x:Key="Page_Style"
            TargetType="{x:Type UserControl}">
 
-        <Setter Property="RenderTransform">
+        <!--<Setter Property="RenderTransform">
             <Setter.Value>
                 <TranslateTransform X="0"
-                                    Y="50" />
+                                    Y="0" />
             </Setter.Value>
-        </Setter>
+        </Setter>-->
 
         <Style.Triggers>
 

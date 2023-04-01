@@ -6,13 +6,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DiskBenchmark.ViewModels
 {
     internal class ConnectedDisksViewModel : Base.ViewModel
     {
         private MainWIndowViewModel _mainWindow;
-        public List<Disk> TestDisks  = new List<Disk>();
+        
         private ObservableCollection<Disk> _disks;
         public ObservableCollection<Disk> Disks 
         {
@@ -59,18 +60,26 @@ namespace DiskBenchmark.ViewModels
         {
             this._mainWindow = mainWindow;
             DisksList disksList = new DisksList();
-            Task.Factory.StartNew(() => 
+            try
             {
-                while (true)
+                Task.Factory.StartNew(() =>
                 {
-                    Disks = new ObservableCollection<Disk>(disksList.GetDisks());
-                    Task.Delay(1000);
-                }
-            });
+                    while (true)
+                    {
+                        Disks = new ObservableCollection<Disk>(disksList.GetDisks());
+                        Task.Delay(1000);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
 
 
-           
 
-        }
+
+
+}
     }
 }
