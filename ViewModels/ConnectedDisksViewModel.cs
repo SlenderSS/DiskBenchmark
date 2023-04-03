@@ -1,4 +1,5 @@
-﻿using DiskBenchmark.Models;
+﻿using DiskBenchmark.Infrastructure.Commands;
+using DiskBenchmark.Models;
 using DiskBenchmark.Services;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace DiskBenchmark.ViewModels
 {
     internal class ConnectedDisksViewModel : Base.ViewModel
     {
-        private MainWIndowViewModel _mainWindow;
+        private readonly Action<object, object, object> navigate;
         
+
         private ObservableCollection<Disk> _disks;
         public ObservableCollection<Disk> Disks 
         {
@@ -25,41 +28,24 @@ namespace DiskBenchmark.ViewModels
             }
         }
 
-
-        //public IEnumerable<Disk> TestDisks1 => Enumerable.Range(1, 10)
-        //    .Select(d => new Disk
-        //    {
-        //        Caption = $"Caption {d}",
-        //        DeviceID = $"DeviceID #{d}",
-        //        SerialNumber = $"SerialNumber {d}-{d}-{d}-{d}",
-        //        Size = 1000 * d,
-        //        FreeSpace = d * 1000 / 2,
-        //        Partitions = (ObservableCollection<Partition>)Enumerable.Range(1,5).Select(p => new Partition
-        //        {
-        //            Caption = $"Caption #{d} #{p}",
-        //            DeviceID = $" {p}",
-        //            Size = 100,
-        //            LogicalDisks = (ObservableCollection<LogicalDisk>)Enumerable.Range(0,1).Select(lg => new LogicalDisk
-        //            {
-        //                Caption = $" {d}, {p}, {lg}",
-        //                DeviceID = $" {lg}",
-        //                FreeSpace = 50,
-        //                Size = 100
-        //            })
-
-        //        })
-        //    });
+        public Disk SelectedDisk { get; set; }
 
        
+        public ICommand DiskDetailsCommand { get; set; }
 
-        public ConnectedDisksViewModel(): this(null)
+        private void DiskDetails(object obj) =>navigate.Invoke("DiskDetails", SelectedDisk, navigate);
+
+        
+        public ConnectedDisksViewModel(Action<object, object, object> navigate)
         {
-           
-        }
-        public ConnectedDisksViewModel(MainWIndowViewModel mainWindow)
-        {
-            this._mainWindow = mainWindow;
-            DisksList disksList = new DisksList();
+            #region Commands
+            DiskDetailsCommand = new LambdaCommand(DiskDetails);
+            #endregion
+
+
+            this.navigate = navigate;
+            DisksListService disksList = new DisksListService();
+
             try
             {
                 Task.Factory.StartNew(() =>
@@ -67,6 +53,7 @@ namespace DiskBenchmark.ViewModels
                     while (true)
                     {
                         Disks = new ObservableCollection<Disk>(disksList.GetDisks());
+                        
                         Task.Delay(1000);
                     }
                 });
@@ -77,9 +64,9 @@ namespace DiskBenchmark.ViewModels
             }
 
 
+            
 
 
-
-}
+        }
     }
 }

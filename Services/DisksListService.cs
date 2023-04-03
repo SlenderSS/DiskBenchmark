@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace DiskBenchmark.Services
 {
-    internal class DisksList
+    internal class DisksListService
     {
-        public ObservableCollection<Disk> GetDisks()
+        public IEnumerable<Disk> GetDisks()
         {
-                ObservableCollection<Disk> disks = new ObservableCollection<Disk>();
+                //IEnumerable<Disk> disks = new IEnumerable<Disk>();
                 ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
 
                 ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
@@ -49,10 +49,9 @@ namespace DiskBenchmark.Services
                             newDisk.LogicalDisks.Add(newLogicalDisk);
                         }
                     }
-
-                    disks.Add(newDisk);
+                yield return newDisk;      /*     disks.Add(newDisk);*/
                 }
-                return disks;
+                //return disks;
             
         }
     }

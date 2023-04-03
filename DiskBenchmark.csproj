@@ -38,9 +38,15 @@
     <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Expression.Interaction.3.0.40218.0\lib\net46\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Expression.Interaction.3.0.40218.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -72,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\ImageStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ListBoxStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,8 +128,11 @@
     <Compile Include="Infrastructure\Converters\BytesToGigabytes.cs" />
     <Compile Include="Infrastructure\Converters\Converter.cs" />
     <Compile Include="Models\Disk.cs" />
+    <Compile Include="Models\HDD.cs" />
     <Compile Include="Models\LogicalDisk.cs" />
-    <Compile Include="Services\DisksList.cs" />
+    <Compile Include="Models\Smart.cs" />
+    <Compile Include="Services\DiskInformService.cs" />
+    <Compile Include="Services\DisksListService.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
     <Compile Include="ViewModels\DiskDetailsViewModel.cs" />
@@ -170,6 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Images\Drive.png" />
+    <Resource Include="Resources\Images\back2.png" />
+    <Resource Include="Resources\Images\back1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\shutdown_def.png" />
