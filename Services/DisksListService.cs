@@ -11,6 +11,10 @@ namespace DiskBenchmark.Services
 {
     internal class DisksListService
     {
+
+
+
+
         public IEnumerable<Disk> GetDisks()
         {
                 //IEnumerable<Disk> disks = new IEnumerable<Disk>();
@@ -22,11 +26,11 @@ namespace DiskBenchmark.Services
                 foreach (ManagementObject disk in searcher.Get())
                 {
                     Disk newDisk = new Disk();
-                    newDisk.Caption = disk["Caption"].ToString();
+                    newDisk.Caption = disk["Model"].ToString();
                     newDisk.DeviceID = disk["DeviceID"].ToString();
                     newDisk.SerialNumber = disk["SerialNumber"].ToString();
                     newDisk.Size = long.Parse(disk["Size"].ToString());
-                    // newDisk.FreeSpace = long.Parse(disk["Free Space"].ToString());
+                   
 
                     ObjectQuery partitionQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskDrive.DeviceID='{newDisk.DeviceID}'}} WHERE AssocClass = Win32_DiskDriveToDiskPartition");
                     ManagementObjectSearcher partitionSearcher = new ManagementObjectSearcher(scope, partitionQuery);

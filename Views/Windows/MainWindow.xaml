@@ -93,8 +93,6 @@
 
                         </RadioButton>
 
-                       
-       
                         <RadioButton Style="{StaticResource BtnStyle}"
                               Command="{Binding HomeCommand}">
 
