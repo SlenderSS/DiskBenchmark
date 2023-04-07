@@ -44,7 +44,7 @@ namespace DiskBenchmark.ViewModels
 
 
             this.navigate = navigate;
-            DisksListService disksList = new DisksListService();
+            DisksService disksList = new DisksService();
 
             try
             {

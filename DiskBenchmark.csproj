@@ -125,6 +125,7 @@
     <Compile Include="Infrastructure\Commands\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="Infrastructure\Commands\MoveWindowCommand.cs" />
+    <Compile Include="Infrastructure\Common\Helper.cs" />
     <Compile Include="Infrastructure\Converters\BytesToGigabytes.cs" />
     <Compile Include="Infrastructure\Converters\Converter.cs" />
     <Compile Include="Models\Disk.cs" />
@@ -132,8 +133,9 @@
     <Compile Include="Models\SmartAttribute.cs" />
     <Compile Include="Models\SmartAttributeCollection.cs" />
     <Compile Include="Models\SmartAttributes.cs" />
+    <Compile Include="Models\SmartDisk.cs" />
     <Compile Include="Services\DiskInformService.cs" />
-    <Compile Include="Services\DisksListService.cs" />
+    <Compile Include="Services\DisksService.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
     <Compile Include="ViewModels\DiskDetailsViewModel.cs" />
