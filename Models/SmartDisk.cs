@@ -16,5 +16,10 @@ namespace DiskBenchmark.Models
         public string Serial { get; set; }
         public SmartAttributeCollection SmartAttributes { get; set; }
         public bool IsSupported { get; set; }
+
+        public SmartDisk()
+        {
+            SmartAttributes = new SmartAttributeCollection();
+        }
     }
 }

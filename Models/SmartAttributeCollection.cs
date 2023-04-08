@@ -8,6 +8,10 @@ namespace DiskBenchmark.Models
         {
 
         }
+        public SmartAttributeCollection(IEnumerable<SmartAttribute> smartAttributes) : base(smartAttributes)
+        {
+            
+        }
 
         public SmartAttribute GetAttribute(int registerID)
         {

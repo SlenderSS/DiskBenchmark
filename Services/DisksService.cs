@@ -33,7 +33,7 @@ namespace DiskBenchmark.Services
                 #endregion
 
                 #region Smart Registers
-
+                
                 smartDisk.SmartAttributes.AddRange(Helper.GetSmartRegisters(Resource.SmartAttributes));
 
                 searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictData Where InstanceName like ""%"
@@ -113,7 +113,7 @@ namespace DiskBenchmark.Services
             {
                 throw new Exception("Error retrieving Smart data for one or more drives. " + ex.Message);
             }
-
+            smartDisk.SmartAttributes = new SmartAttributeCollection(smartDisk.SmartAttributes.Where(x => x.Current != 0 && x.Worst != 0).ToList());
             return smartDisk;
         }
 

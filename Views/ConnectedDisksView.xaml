@@ -27,11 +27,6 @@
             <ListBox  Margin="20,10,20,40" Background="#FF383A40" 
                       x:Name="DisksList"
                       ItemsSource="{Binding Disks, UpdateSourceTrigger=PropertyChanged}" 
-                      BorderBrush="#FF343842"
-                      BorderThickness="5"
-                      OpacityMask="#FF5D5858"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      VerticalContentAlignment="Center"
                       HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedDisk}"
                       SelectionMode="Single"               
@@ -54,10 +49,7 @@
                 <ListBox.ItemTemplate >
                     <DataTemplate DataType="{x:Type models:Disk}">
 
-                        <Grid>
-                            <Grid.InputBindings>
-                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding }"/>
-                            </Grid.InputBindings>
+                        
                             
                              <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20" Width="550" Margin="0,20,0,20">
                                      
@@ -71,7 +63,7 @@
 
                                         </DockPanel>
 
-                                        <ListBox ItemsSource="{Binding LogicalDisks}" Background="Transparent" BorderBrush="Transparent">
+                                        <ListBox ItemsSource="{Binding LogicalDisks}" HorizontalContentAlignment="Stretch" Background="Transparent" BorderBrush="Transparent">
 
                                             <ListBox.ItemTemplate >
                                                 <DataTemplate>
@@ -100,12 +92,6 @@
                                     </StackPanel>
 
                                 </Border>
-
-                        </Grid>
-
-                       
-                        
-
 
                     </DataTemplate>
                 </ListBox.ItemTemplate>
