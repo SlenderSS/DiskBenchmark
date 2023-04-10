@@ -12,8 +12,8 @@ namespace DiskBenchmark.Models
         public string Caption { get; set; }
         public string DeviceID { get; set; }
         public string SerialNumber { get; set; }
-        public long Size { get; set; }
-        public long TotalUsedSpace { get; set; }
+        public ulong Size { get; set; }
+        public ulong TotalUsedSpace { get; set; }
 
         public string PnpDeviceID { get; set; }
         public ObservableCollection<LogicalDisk> LogicalDisks { get; set; }

@@ -18,6 +18,24 @@ namespace DiskBenchmark.Services
             SmartDisk smartDisk = new SmartDisk();
             try
             {
+                ManagementObjectSearcher mangObjsearc = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE Caption='" + disk.Caption + "'");
+
+                foreach (ManagementObject manObj in mangObjsearc.Get())
+                {
+                    smartDisk.Type = manObj["MediaType"].ToString();
+                    smartDisk.Model = manObj["Model"].ToString();
+                    smartDisk.Serial = manObj["SerialNumber"].ToString();
+                    smartDisk.InfrastructureType = manObj["InterfaceType"].ToString();
+                    smartDisk.Capasity = ulong.Parse(manObj["Size"].ToString()); 
+                    smartDisk.Partitions = Convert.ToUInt16(manObj["Partitions"].ToString());
+                    smartDisk.Signature = manObj["Signature"].ToString();
+
+                    var temp = manObj["FirmwareRevision"];
+                    smartDisk.FirmwareRevision = manObj["FirmwareRevision"] != null ?  manObj["FirmwareRevision"].ToString() : "Missing info";         
+                    smartDisk.Sectors = Convert.ToUInt32(manObj["TotalSectors"].ToString());
+                }
+
+
                 #region Overall Smart Status
 
                 ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
@@ -133,7 +151,7 @@ namespace DiskBenchmark.Services
                 newDisk.Caption = disk["Model"].ToString();
                 newDisk.DeviceID = disk["DeviceID"].ToString();
                 newDisk.SerialNumber = disk["SerialNumber"].ToString();
-                newDisk.Size = long.Parse(disk["Size"].ToString());
+                newDisk.Size = ulong.Parse(disk["Size"].ToString());
                 newDisk.PnpDeviceID = disk["PNPDeviceID"].ToString();
 
                 ObjectQuery partitionQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskDrive.DeviceID='{newDisk.DeviceID}'}} WHERE AssocClass = Win32_DiskDriveToDiskPartition");
@@ -151,8 +169,8 @@ namespace DiskBenchmark.Services
                         newLogicalDisk.Caption = logicalDisk["Caption"].ToString();
                         newLogicalDisk.DeviceID = logicalDisk["DeviceID"].ToString();
                         newLogicalDisk.FileSystem = logicalDisk["FileSystem"].ToString();
-                        newLogicalDisk.Size = long.Parse(logicalDisk["Size"].ToString());
-                        newLogicalDisk.UsedSpace = newLogicalDisk.Size - long.Parse(logicalDisk["FreeSpace"].ToString());
+                        newLogicalDisk.Size = ulong.Parse(logicalDisk["Size"].ToString());
+                        newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"].ToString());
                         newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
                         newDisk.LogicalDisks.Add(newLogicalDisk);
                     }

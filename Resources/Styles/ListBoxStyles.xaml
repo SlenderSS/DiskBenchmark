@@ -6,16 +6,4 @@
 
 
 
-    <!--<Style TargetType="ListBoxItem">
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True" >
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="Black" />
-            </Trigger>
-        </Style.Triggers>
-        <Style.Resources>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-        </Style.Resources>
-    </Style>-->
 </ResourceDictionary>

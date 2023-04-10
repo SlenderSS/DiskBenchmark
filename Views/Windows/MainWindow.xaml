@@ -10,7 +10,7 @@
         xmlns:convert="clr-namespace:DiskBenchmark.Infrastructure.Converters"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Height="650"
+        Height="550"
         Width="1000"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
