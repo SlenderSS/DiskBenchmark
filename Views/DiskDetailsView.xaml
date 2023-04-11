@@ -132,6 +132,7 @@
                           Margin="10,10,10,10" 
                           VerticalContentAlignment="Center"
                               HeadersVisibility="Column"
+                                      IsReadOnly="True"
                               >
                                 <DataGrid.Template>
                                     <ControlTemplate>
