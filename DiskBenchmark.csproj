@@ -48,6 +48,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="StorageSpeedMeter">
+      <HintPath>E:\VS Projects\repos\StorageSpeedMeter\bin\Debug\StorageSpeedMeter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -153,7 +156,6 @@
     <Compile Include="Models\SmartAttributeCollection.cs" />
     <Compile Include="Models\SmartAttributes.cs" />
     <Compile Include="Models\SmartDisk.cs" />
-    <Compile Include="Services\DiskInformService.cs" />
     <Compile Include="Services\DisksService.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
