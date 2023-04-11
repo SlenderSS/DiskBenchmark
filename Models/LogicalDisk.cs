@@ -12,8 +12,8 @@ namespace DiskBenchmark.Models
         public string DeviceID { get; set;}
         public string FileSystem { get; set; }
 
-        public long UsedSpace { get; set; }
-        public long Size { get; set; }
+        public ulong UsedSpace { get; set; }
+        public ulong Size { get; set; }
     }
 
 }

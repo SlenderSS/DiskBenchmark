@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="Resources/Styles/ProgressBarStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ScrollBarStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ComboBoxStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/CheckBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/DataTemplates/DataTemplate.xaml" />
                
 

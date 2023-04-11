@@ -17,6 +17,7 @@
                 Value="70,0,0,0" />
 
     </Style>
+    
     <Style x:Key="Text_Style2" TargetType="TextBlock">
         <Setter Property="FontFamily"
                 Value="/Fonts/#Rubik-Medium" />
@@ -61,4 +62,22 @@
         <Setter Property="Margin"
                 Value="5,5,0,0" />
     </Style>
+    <Style x:Key="Text_Style5" TargetType="TextBlock">
+        <Setter Property="FontFamily"
+                Value="/Fonts/#Rubik" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="Foreground"
+                Value="#DBDBDB" />
+        <Setter Property="FontSize"
+                Value="15" />
+        <Setter Property="Margin"
+                Value="5,5,0,0" />
+    </Style>
+
+
+
 </ResourceDictionary>

@@ -27,11 +27,6 @@
             <ListBox  Margin="20,10,20,40" Background="#FF383A40" 
                       x:Name="DisksList"
                       ItemsSource="{Binding Disks, UpdateSourceTrigger=PropertyChanged}" 
-                      BorderBrush="#FF343842"
-                      BorderThickness="5"
-                      OpacityMask="#FF5D5858"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      VerticalContentAlignment="Center"
                       HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedDisk}"
                       SelectionMode="Single"               
@@ -54,37 +49,34 @@
                 <ListBox.ItemTemplate >
                     <DataTemplate DataType="{x:Type models:Disk}">
 
-                        <Grid>
-                            <Grid.InputBindings>
-                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding }"/>
-                            </Grid.InputBindings>
-                            
-                             <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20" Width="550" Margin="0,20,0,20">
-                                     
-
-                                    <StackPanel Orientation="Vertical" Margin="20,20,10,5">
-
-                                        <DockPanel >
-
-                                            <TextBlock Text="Caption:" Style="{StaticResource Text_Style2}"/>
-                                            <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style2}"/>
-
-                                        </DockPanel>
-
-                                        <ListBox ItemsSource="{Binding LogicalDisks}" Background="Transparent" BorderBrush="Transparent">
-
-                                            <ListBox.ItemTemplate >
+                        <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20" Width="600" Margin="0,20,0,20">
+                            <StackPanel Orientation="Vertical" Margin="20,20,10,5">
+                                <DockPanel>
+                                    <Image Source="/Resources/Images/hdd.png" Style="{StaticResource Image_Style}" Visibility="Visible"/>
+                                    <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style2}"/>
+                                </DockPanel>
+                                <ListBox ItemsSource="{Binding LogicalDisks}"
+                                         HorizontalContentAlignment="Stretch"
+                                         Background="Transparent" 
+                                         BorderBrush="Transparent" 
+                                         >
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate >
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" Margin="0,10,5,5" Height="30">
-                                                        <TextBlock Text="{Binding Caption}" Style="{StaticResource Text_Style3}"/>
+                                                        <TextBlock Text="{Binding Caption}" Width="15" Style="{StaticResource Text_Style3}"/>
                                                         <ProgressBar Value="{Binding UsedSpace}"                
                                                                          Maximum="{Binding Size}"
-                                                                         Width="260" 
-                                                                         Margin="20,5">
+                                                                         Width="300" 
+                                                                         Margin="20,5"
+                                                                            >
                                                             <ProgressBar.Clip>
-                                                                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,2,260,15"/>
+                                                                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,2,300,15"/>
                                                             </ProgressBar.Clip>
-
                                                         </ProgressBar>
                                                         <TextBlock  >
                                                        <TextBlock Text="{Binding UsedSpace,Converter={StaticResource BytesConverter}}" Style="{StaticResource Text_Style4}"/>
@@ -100,12 +92,6 @@
                                     </StackPanel>
 
                                 </Border>
-
-                        </Grid>
-
-                       
-                        
-
 
                     </DataTemplate>
                 </ListBox.ItemTemplate>

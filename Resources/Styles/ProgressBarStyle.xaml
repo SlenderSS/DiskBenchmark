@@ -15,7 +15,7 @@
                             <Grid Name="Foreground">
                                 <Rectangle Fill="{TemplateBinding Foreground}" Name="Indicator" />
                                 <Grid Name="Animation" ClipToBounds="True">
-                                    <Border Name="PART_GlowRect"  Margin="0,0,0,0" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}"/>
+                                    <Border Name="PART_GlowRect"  Margin="0,0,0,0" HorizontalAlignment="Left" />
                                 </Grid>
                                 <Grid Name="Overlay">
                                 </Grid>
@@ -24,6 +24,8 @@
 
                         <Border BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"/>
+
+
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsIndeterminate" Value="true">
@@ -43,10 +45,15 @@
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
+                
             </Setter.Value>
         </Setter>
     </Style>
 
+
+    <Style x:Key="GradientStyle" >
+        
+    </Style>
     
 
 

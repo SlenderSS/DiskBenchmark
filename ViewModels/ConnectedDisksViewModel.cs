@@ -44,7 +44,7 @@ namespace DiskBenchmark.ViewModels
 
 
             this.navigate = navigate;
-            DisksListService disksList = new DisksListService();
+            DisksService disksList = new DisksService();
 
             try
             {
@@ -54,7 +54,7 @@ namespace DiskBenchmark.ViewModels
                     {
                         Disks = new ObservableCollection<Disk>(disksList.GetDisks());
                         
-                        Task.Delay(1000);
+                        Task.Delay(5000);
                     }
                 });
             }
