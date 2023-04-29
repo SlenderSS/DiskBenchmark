@@ -58,6 +58,7 @@
                                          HorizontalContentAlignment="Stretch"
                                          Background="{StaticResource Transparent}" 
                                          BorderBrush="{StaticResource Transparent}" 
+                                         ToolTip="Click for getting detail information"
                                          >
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">

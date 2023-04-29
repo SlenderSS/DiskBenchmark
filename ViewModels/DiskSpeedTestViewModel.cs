@@ -281,7 +281,7 @@ namespace DiskBenchmark.ViewModels
             this.MyModel.Series.Add(SequentialRead.Series);
             this.MyModel.Series.Add(RandomWrite.Series);
             this.MyModel.Series.Add(RandomRead.Series);
-            this.MyModel.Series.Add(MemoryCopy.Series);
+            //this.MyModel.Series.Add(MemoryCopy.Series);
 
 
             Task.Run(async () =>

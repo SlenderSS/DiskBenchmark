@@ -90,7 +90,8 @@ namespace DiskBenchmark.ViewModels
         #endregion
         public MainWIndowViewModel()
         {
-            this.mainWindow = this;
+
+           
             #region Commands
             //CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
             HomeCommand = new LambdaCommand(Home);

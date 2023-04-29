@@ -42,7 +42,7 @@ namespace DiskBenchmark.ViewModels
             DiskDetailsCommand = new LambdaCommand(DiskDetails);
             #endregion
 
-            //Disks = new ObservableCollection<Disk>();
+           
             this.navigate = navigate;
             DisksService disksList = new DisksService();
 
