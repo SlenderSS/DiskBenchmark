@@ -7,11 +7,17 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading.Tasks;
+using StorageSpeedMeter;
+
 
 namespace DiskBenchmark.Services
 {
     internal class DisksService
     {
+        public static readonly long FILE_SIZE = 1024 * 1024 * 1024;
+        
+
+
 
         public SmartDisk GetSmartInformation(Disk disk)
         {
@@ -93,7 +99,7 @@ namespace DiskBenchmark.Services
                     }
                 }
 
-                    searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictThresholds Where InstanceName like ""%"
+                searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictThresholds Where InstanceName like ""%"
                                                      + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
                 foreach (ManagementObject data in searcher.Get())
                 {
@@ -117,7 +123,7 @@ namespace DiskBenchmark.Services
                         catch (Exception ex)
                         {
                         // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
-                        throw new Exception(ex.Message);
+                          throw new Exception(ex.Message);
                         }
                     }
                 }
@@ -135,13 +141,11 @@ namespace DiskBenchmark.Services
             return smartDisk;
         }
 
-
-
-        public IEnumerable<Disk> GetDisks()
+        public List<Disk> GetDisks()
         {
                 //IEnumerable<Disk> disks = new IEnumerable<Disk>();
             ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
-
+            var disks = new List<Disk>();
             ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 
@@ -173,11 +177,12 @@ namespace DiskBenchmark.Services
                         newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"].ToString());
                         newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
                         newDisk.LogicalDisks.Add(newLogicalDisk);
+                        
                     }
                 }
-                 yield return newDisk;      /*     disks.Add(newDisk);*/
+                disks.Add(newDisk);      /*     disks.Add(newDisk);*/
             }
-            //return disks;
+            return disks;
             
         }
     }

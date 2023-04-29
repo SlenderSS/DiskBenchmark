@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="DiskBenchmark.Views.DiskSpeedTestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiskBenchmark.Views"
+             xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:DiskSpeedTestViewModel,IsDesignTimeCreatable=True}"
+             Style="{StaticResource Page_Style}"
+             
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid>
+        <Border Style="{StaticResource BorderStyle1}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="280"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DockPanel>
+                    <ComboBox ItemsSource="{Binding Drives}" FontSize="20" ToolTip="Click to select drive for speed-testing" SelectedItem="{Binding SelectedDrive}" Width="450" Margin="50,10"/>
+                    <Button Style="{StaticResource RoundedButtonStyle}" ToolTip="Click to start speed-testing" Content="Start testing" Command="{Binding DiskTeskCommand}"  Margin="0,10,50,10"/>
+                </DockPanel>
+
+                <Border Grid.Row="1" Style="{StaticResource BorderStyle2}" Margin="20,20,20,20">
+                    <oxy:PlotView  Model="{Binding MyModel}" ToolTip="Chart for a detailed view of the disk write/read speed"
+                           Margin="20,0,20,0"
+                           Background="Transparent" Foreground="#FF4A8DBB" />
+                
+                </Border>
+                <StackPanel Grid.Row="2" Orientation="Vertical" Margin="50,0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Sequential write: " Style="{StaticResource Text_Style5}"/>
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource SequentialWrite}" StrokeThickness="2"/>
+                        <TextBlock Text="{Binding SequentialWrite.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text=" Sequential read: " Style="{StaticResource Text_Style5}"/>
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource SequentialRead}" StrokeThickness="2"/>
+                        <TextBlock Text="{Binding SequentialRead.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="   Random write: " Style="{StaticResource Text_Style5}"/>
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource RandomWrite}" StrokeThickness="2"/>
+                        <TextBlock Text="{Binding RandomWrite.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="    Random read: " Style="{StaticResource Text_Style5}"/>
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource RandomRead}" StrokeThickness="2"/>
+                        <TextBlock Text="{Binding RandomRead.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="   Memory copy: " Style="{StaticResource Text_Style5}"/>
+                        <Rectangle Width="15" Height="15" Fill="{StaticResource MemoryCopy}" StrokeThickness="2"/>
+                        <TextBlock Text="{Binding MemoryCopy.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    </StackPanel>
+                </StackPanel>
+                
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>

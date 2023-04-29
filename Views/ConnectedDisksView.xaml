@@ -13,6 +13,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
+             
              d:DataContext="{d:DesignInstance vm:ConnectedDisksViewModel, IsDesignTimeCreatable=True}"
              Style= "{StaticResource Page_Style}">
     <UserControl.Resources>
@@ -20,11 +21,9 @@
         
     </UserControl.Resources>
     <Grid>
-        <Border Background="#272B2F" CornerRadius="0,0,20,0"/>
-        <Grid>
-            
+        <Border Style="{StaticResource BorderStyle1}"/>
 
-            <ListBox  Margin="20,10,20,40" Background="#FF383A40" 
+            <ListBox  Margin="20,10,20,40"
                       x:Name="DisksList"
                       ItemsSource="{Binding Disks, UpdateSourceTrigger=PropertyChanged}" 
                       HorizontalContentAlignment="Center"
@@ -39,7 +38,7 @@
                 </i:Interaction.Triggers>
                 <ListBox.Template>
                     <ControlTemplate >
-                        <Border BorderBrush="#272B2F" Background="#FF343638" BorderThickness="5" CornerRadius="15">
+                        <Border Background="#FF343638" BorderThickness="5" CornerRadius="15">
                             <ScrollViewer CanContentScroll="False">
                                 <ItemsPresenter/>
                             </ScrollViewer>
@@ -49,7 +48,7 @@
                 <ListBox.ItemTemplate >
                     <DataTemplate DataType="{x:Type models:Disk}">
 
-                        <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20" Width="600" Margin="0,20,0,20">
+                        <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20"  Margin="0,20,0,20">
                             <StackPanel Orientation="Vertical" Margin="20,20,10,5">
                                 <DockPanel>
                                     <Image Source="/Resources/Images/hdd.png" Style="{StaticResource Image_Style}" Visibility="Visible"/>
@@ -57,8 +56,8 @@
                                 </DockPanel>
                                 <ListBox ItemsSource="{Binding LogicalDisks}"
                                          HorizontalContentAlignment="Stretch"
-                                         Background="Transparent" 
-                                         BorderBrush="Transparent" 
+                                         Background="{StaticResource Transparent}" 
+                                         BorderBrush="{StaticResource Transparent}" 
                                          >
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">
@@ -97,6 +96,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             
-        </Grid>
+        
     </Grid>
 </UserControl>

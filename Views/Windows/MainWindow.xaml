@@ -23,9 +23,7 @@
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
         <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
     </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{StaticResource CloseAppCommand}"/>
-    </Window.InputBindings>
+    
     <Window.DataContext>
         <vm:MainWIndowViewModel/>
     </Window.DataContext>
@@ -94,7 +92,7 @@
                         </RadioButton>
 
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}">
+                              Command="{Binding DisksTestCommand}">
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Connectdevelop" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>

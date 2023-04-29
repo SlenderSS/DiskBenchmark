@@ -48,6 +48,16 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot, Version=2.1.2.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Core.2.1.2\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=2.1.2.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Wpf.2.1.2\lib\net45\OxyPlot.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf.Shared, Version=2.1.2.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Wpf.Shared.2.1.2\lib\net45\OxyPlot.Wpf.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
     <Reference Include="StorageSpeedMeter">
       <HintPath>E:\VS Projects\repos\StorageSpeedMeter\bin\Debug\StorageSpeedMeter.dll</HintPath>
     </Reference>
@@ -56,6 +66,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -79,6 +90,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\Styles\BorderStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\CheckBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +150,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DiskSpeedTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +174,7 @@
     <Compile Include="Infrastructure\Converters\BytesToGigabytes.cs" />
     <Compile Include="Infrastructure\Converters\Converter.cs" />
     <Compile Include="Models\Disk.cs" />
+    <Compile Include="Models\DiskTestInformation.cs" />
     <Compile Include="Models\LogicalDisk.cs" />
     <Compile Include="Models\SmartAttribute.cs" />
     <Compile Include="Models\SmartAttributeCollection.cs" />
@@ -160,13 +184,18 @@
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
     <Compile Include="ViewModels\DiskDetailsViewModel.cs" />
+    <Compile Include="ViewModels\DiskSpeedTestViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWIndowViewModel.cs" />
+    <Compile Include="ViewModels\ObservableCollecion.cs" />
     <Compile Include="Views\ConnectedDisksView.xaml.cs">
       <DependentUpon>ConnectedDisksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiskDetailsView.xaml.cs">
       <DependentUpon>DiskDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiskSpeedTestView.xaml.cs">
+      <DependentUpon>DiskSpeedTestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>

@@ -42,19 +42,19 @@ namespace DiskBenchmark.ViewModels
             DiskDetailsCommand = new LambdaCommand(DiskDetails);
             #endregion
 
-
+            //Disks = new ObservableCollection<Disk>();
             this.navigate = navigate;
             DisksService disksList = new DisksService();
 
             try
             {
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew( async() =>
                 {
                     while (true)
-                    {
+                    { 
                         Disks = new ObservableCollection<Disk>(disksList.GetDisks());
                         
-                        Task.Delay(5000);
+                        await Task.Delay(5000);
                     }
                 });
             }
