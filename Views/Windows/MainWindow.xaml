@@ -16,16 +16,14 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-
+        
       >
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
         <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
     </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{StaticResource CloseAppCommand}"/>
-    </Window.InputBindings>
+    
     <Window.DataContext>
         <vm:MainWIndowViewModel/>
     </Window.DataContext>
@@ -72,7 +70,7 @@
                     <StackPanel Height="500"
                             Width="228">
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}">
+                              Command="{Binding HomeCommand}" ToolTip="Click to go home page">
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
@@ -83,7 +81,7 @@
                         </RadioButton>
 
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding DisksListCommand}">
+                              Command="{Binding DisksListCommand}" ToolTip="Click to go connected disks page">
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Inbox" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
@@ -94,7 +92,7 @@
                         </RadioButton>
 
                         <RadioButton Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}">
+                              Command="{Binding DisksTestCommand}" ToolTip="Click to go testing drives page">
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Connectdevelop" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>

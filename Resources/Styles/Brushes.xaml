@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#272B2F"/>
+    <SolidColorBrush x:Key="BorderBrush_1" Color="#FF343638"/>
+    <SolidColorBrush x:Key="BorderBrush_2" Color="#FF2D3136"/>
+    <SolidColorBrush x:Key="Transparent" Color="Transparent"/>
+
+    <SolidColorBrush x:Key="SequentialWrite" Color="#9871BF"/>
+    <SolidColorBrush x:Key="SequentialRead" Color="#BF7195"/>
+    <SolidColorBrush x:Key="RandomWrite" Color="#588AD9"/>
+    <SolidColorBrush x:Key="RandomRead" Color="#65D3BB"/>
+    <SolidColorBrush x:Key="MemoryCopy" Color="#A4B945"/>
+    
+
+
+</ResourceDictionary>

@@ -35,10 +35,12 @@ namespace DiskBenchmark.ViewModels
         public ICommand HomeCommand { get; set; }
         public ICommand DisksListCommand { get; set; }
         public ICommand DiskDetailsCommand { get; set; }
+        public ICommand DisksTestCommand { get; set; }
 
 
         private void Home(object obj) => CurrentView = new HomeViewModel();
         private void DisksList(object obj) => CurrentView = new ConnectedDisksViewModel(OpenUserControl);
+        private void DisksTest(object obj) => CurrentView = new DiskSpeedTestViewModel();
         //private void DiskDetails(object obj) => CurrentView = new DiskDetailsViewModel(SelectedDisk);
 
         private void OpenUserControl(object obj, object param, object navigation)
@@ -88,12 +90,13 @@ namespace DiskBenchmark.ViewModels
         #endregion
         public MainWIndowViewModel()
         {
-            this.mainWindow = this;
+
+           
             #region Commands
             //CloseAppCommand = new LambdaCommand(OnCloseAppCommandExecuted, CanCloseAppCommandExecute);
             HomeCommand = new LambdaCommand(Home);
             DisksListCommand = new LambdaCommand(DisksList);
-           
+            DisksTestCommand = new LambdaCommand(DisksTest);
             #endregion
 
             

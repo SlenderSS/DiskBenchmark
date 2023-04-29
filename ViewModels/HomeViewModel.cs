@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DiskBenchmark.Models;
+using DiskBenchmark.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +10,21 @@ namespace DiskBenchmark.ViewModels
 {
     internal class HomeViewModel : Base.ViewModel
     {
+        private SystemInfo _systemInfo;
+
+        public SystemInfo SystemInfo { get => _systemInfo; set { Set(ref _systemInfo, value); OnPropertyChanged(); } }
+
+        private SystemInfoService SystemInfoService;
+
         public HomeViewModel() : this(null)
         {
 
         }
-        public HomeViewModel(MainWIndowViewModel mainWIndowViewModel)
+        public HomeViewModel(SystemInfoService systemInfo)
         {
-
+            SystemInfoService = new SystemInfoService();
+            
+            Task.Run(() => { SystemInfo = SystemInfoService.GetOperatingSystemInfo(); });
         }
     }
 }

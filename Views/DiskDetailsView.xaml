@@ -39,7 +39,7 @@
 
                     <Button Grid.Row="0" Background="Transparent"
                     Style="{StaticResource BackwardPageStyle}"
-                    Command="{Binding BackCommand}"/>
+                    Command="{Binding BackCommand}" ToolTip="Click to go back page"/>
 
                     <Border Grid.Row="1" Margin="20,20,10,30" BorderBrush="#272B2F" Background="#FF343638" BorderThickness="5" CornerRadius="15">
                         <StackPanel Orientation="Vertical" Margin="20,30" >

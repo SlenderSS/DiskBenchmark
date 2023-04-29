@@ -14,4 +14,8 @@
     <DataTemplate DataType="{x:Type vm:DiskDetailsViewModel}">
         <view:DiskDetailsView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:DiskSpeedTestViewModel}">
+        <view:DiskSpeedTestView/>
+    </DataTemplate>
 </ResourceDictionary>
