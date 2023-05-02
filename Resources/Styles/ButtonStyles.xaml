@@ -125,6 +125,13 @@
       
                 ImageSource="/Resources/Images/back2.png"
                 Stretch="Fill" />
+    <ImageBrush x:Key="Minimize1"
+                ImageSource="/Resources/Images/minimize_no.png"
+                Stretch="Fill" />
+    <ImageBrush x:Key="Minimize2"
+                ImageSource="/Resources/Images/minimize_act.png"
+                Stretch="Fill" />
+    
 
     <Style x:Key="ExitApp"
            TargetType="{x:Type Button}">
@@ -184,7 +191,6 @@
 
     </Style>
 
-
     <Style x:Key="BackwardPageStyle"
            TargetType="{x:Type Button}">
 
@@ -228,6 +234,49 @@
         </Setter>
     </Style>
 
+
+    <Style x:Key="MinimizeWindowStyle"
+           TargetType="{x:Type Button}">
+
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Height"
+                Value="34" />
+        <Setter Property="Width"
+                Value="34" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="10,9,0,0" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="{StaticResource Minimize1}">
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Minimize2}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource Minimize2}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--<Style x:Key="RoundButton" TargetType="Button">
         <Setter Property="Background" Value="#93C0E3"/>

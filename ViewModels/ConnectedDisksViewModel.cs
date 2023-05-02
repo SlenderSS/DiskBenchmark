@@ -45,15 +45,20 @@ namespace DiskBenchmark.ViewModels
            
             this.navigate = navigate;
             DisksService disksList = new DisksService();
-
+            Disks = new ObservableCollection<Disk>();
             try
             {
                 Task.Factory.StartNew( async() =>
                 {
                     while (true)
-                    { 
-                        Disks = new ObservableCollection<Disk>(disksList.GetDisks());
-                        
+                    {
+
+                        //Disks = disksList.GetDisks();
+                        var temp = disksList.GetDisks();
+                        if (temp.Count != Disks.Count)
+                        {
+                            Disks = temp;
+                        }
                         await Task.Delay(5000);
                     }
                 });

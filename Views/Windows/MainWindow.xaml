@@ -12,14 +12,16 @@
         mc:Ignorable="d"
         Height="550"
         Width="1000"
+        Title="MainWindow"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        
+        ResizeMode="NoResize"
       >
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
+        <cmd:MinimizeWindowCommand x:Key="MinimizeWindowCommand"/>
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
         <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
     </Window.Resources>
@@ -48,8 +50,10 @@
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="1">
+                    <Button Style="{StaticResource MinimizeWindowStyle}"
+                            Command="{StaticResource MinimizeWindowCommand}" ToolTip="Click to minimize window"/>
                     <Button Style="{StaticResource ExitApp}"
-                            Command="{StaticResource CloseAppCommand}"/>
+                            Command="{StaticResource CloseAppCommand}" ToolTip="Click to close application"/>
                 </DockPanel>
                 
             </Grid>

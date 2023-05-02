@@ -34,9 +34,10 @@ namespace DiskBenchmark.Services
                     smartDisk.InfrastructureType = manObj["InterfaceType"].ToString();
                     smartDisk.Capasity = ulong.Parse(manObj["Size"].ToString()); 
                     smartDisk.Partitions = Convert.ToUInt16(manObj["Partitions"].ToString());
-                    smartDisk.Signature = manObj["Signature"].ToString();
 
-                    var temp = manObj["FirmwareRevision"];
+                    smartDisk.Signature = manObj["Signature"] != null ? manObj["Signature"].ToString(): "None information" ;
+
+
                     smartDisk.FirmwareRevision = manObj["FirmwareRevision"] != null ?  manObj["FirmwareRevision"].ToString() : "Missing info";         
                     smartDisk.Sectors = Convert.ToUInt32(manObj["TotalSectors"].ToString());
                 }
@@ -44,7 +45,9 @@ namespace DiskBenchmark.Services
 
                 #region Overall Smart Status
 
-                ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
+                try
+                {
+                     ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
                 ObjectQuery query = new ObjectQuery(@"SELECT * FROM MSStorageDriver_FailurePredictStatus Where InstanceName like ""%"
                                                     + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
@@ -129,6 +132,14 @@ namespace DiskBenchmark.Services
                 }
 
                 #endregion
+                }
+                catch 
+                {
+
+                    smartDisk.IsOK = false;
+                }
+
+               
 
                 smartDisk.IsSupported = smartDisk.SmartAttributes.Where(sa => sa.HasData).Any();
                 
@@ -141,11 +152,11 @@ namespace DiskBenchmark.Services
             return smartDisk;
         }
 
-        public List<Disk> GetDisks()
+        public ObservableCollection<Disk> GetDisks()
         {
                 //IEnumerable<Disk> disks = new IEnumerable<Disk>();
             ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
-            var disks = new List<Disk>();
+            var disks = new ObservableCollection<Disk>();
             ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 

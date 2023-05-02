@@ -11,6 +11,10 @@
              Style="{StaticResource Page_Style}">
     <Grid>
         <Border Background="#272B2F" CornerRadius="0,0,20,0"/>
+
+        <Border Style="{StaticResource BorderStyle2}" Margin="30">
+            
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -27,5 +31,6 @@
             </StackPanel>
             <!--<TextBlock Text="Home Page" FontSize="50" Style="{StaticResource Text_Style3}"/>-->
         </Grid>
+        </Border>
     </Grid>
 </UserControl>

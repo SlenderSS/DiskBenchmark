@@ -21,9 +21,7 @@ namespace DiskBenchmark.ViewModels
 
         #endregion
 
-        private MainWIndowViewModel mainWindow;
-        
-
+      
         private object _currentView;
         public object CurrentView { get => _currentView; set 
             {

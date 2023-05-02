@@ -155,7 +155,7 @@ namespace DiskBenchmark.ViewModels
                                   else if ((e.Status == TestStatus.Completed) && (e.Results != null))
                                   {
 
-                                      current.Status = string.Format("Avg: {0:0.00} MB/s\t Min÷Max: {1:0.00} MB/s ÷ {2:0.00} MB/s, Time: {3}m{4:00}s",
+                                      current.Status = string.Format("Avg: {0:0.00} MB/s  Min÷Max: {1:0.00} MB/s ÷ {2:0.00} MB/s, Time: {3}m{4:00}s",
                                           e.Results.AvgThroughput,
                                           e.Results.Min,
                                           e.Results.Max,
@@ -187,6 +187,19 @@ namespace DiskBenchmark.ViewModels
 
         public DiskSpeedTestViewModel()
         {
+
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    var updateDrives = DriveInfo.GetDrives().Where(x => x.AvailableFreeSpace > DisksService.FILE_SIZE).ToArray();
+                    if (updateDrives.Length != Drives.Length || SelectedDrive == null)
+                        Drives = updateDrives;
+
+                    await Task.Delay(5000);
+                }
+            });
+
             var color = OxyColor.FromRgb(138, 197, 206);
             this.MyModel = new PlotModel { Title = "Write/Read speed benchmark test", TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
             MyModel.PlotAreaBorderColor = color;
@@ -284,16 +297,7 @@ namespace DiskBenchmark.ViewModels
             //this.MyModel.Series.Add(MemoryCopy.Series);
 
 
-            Task.Run(async () =>
-            {        
-                while(true){
-                    var updateDrives = RamDiskUtil.GetEligibleDrives().Where(x => x.AvailableFreeSpace > DisksService.FILE_SIZE).ToArray();
-                    if(updateDrives.Length != Drives.Length || SelectedDrive == null )                 
-                        Drives = updateDrives;
-                    
-                    await Task.Delay(5000);
-                }
-            });
+            
 
 
         }

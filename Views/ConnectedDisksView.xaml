@@ -69,11 +69,7 @@
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" Margin="0,10,5,5" Height="30">
                                                         <TextBlock Text="{Binding Caption}" Width="15" Style="{StaticResource Text_Style3}"/>
-                                                        <ProgressBar Value="{Binding UsedSpace}"                
-                                                                         Maximum="{Binding Size}"
-                                                                         Width="300" 
-                                                                         Margin="20,5"
-                                                                            >
+                                                        <ProgressBar Value="{Binding UsedSpace}" Maximum="{Binding Size}" Width="300" Margin="20,5" >
                                                             <ProgressBar.Clip>
                                                                 <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,2,300,15"/>
                                                             </ProgressBar.Clip>
