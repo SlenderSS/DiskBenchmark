@@ -25,6 +25,11 @@
 
             </ResourceDictionary.MergedDictionaries>
 
+            <DrawingImage x:Key="MyIcon" >
+                <DrawingImage.Drawing>
+                    <ImageDrawing ImageSource="/DiskBenchmark;component/Resources/Images/app_ico.ico" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
         </ResourceDictionary>
 
     </Application.Resources>

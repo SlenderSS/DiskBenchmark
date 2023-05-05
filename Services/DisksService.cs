@@ -8,7 +8,7 @@ using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using StorageSpeedMeter;
-
+using System.Windows;
 
 namespace DiskBenchmark.Services
 {
@@ -34,7 +34,6 @@ namespace DiskBenchmark.Services
                     smartDisk.InfrastructureType = manObj["InterfaceType"].ToString();
                     smartDisk.Capasity = ulong.Parse(manObj["Size"].ToString()); 
                     smartDisk.Partitions = Convert.ToUInt16(manObj["Partitions"].ToString());
-
                     smartDisk.Signature = manObj["Signature"] != null ? manObj["Signature"].ToString(): "None information" ;
 
 
@@ -47,106 +46,103 @@ namespace DiskBenchmark.Services
 
                 try
                 {
-                     ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
-                ObjectQuery query = new ObjectQuery(@"SELECT * FROM MSStorageDriver_FailurePredictStatus Where InstanceName like ""%"
-                                                    + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
-                ManagementObjectCollection queryCollection = searcher.Get();
-                foreach (ManagementObject m in queryCollection)
-                {
-                    smartDisk.IsOK = (bool)m.Properties["PredictFailure"].Value == false;
-                }
-
-                #endregion
-
-                #region Smart Registers
-                
-                smartDisk.SmartAttributes.AddRange(Helper.GetSmartRegisters(Resource.SmartAttributes));
-
-                searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictData Where InstanceName like ""%"
-                                                     + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
-
-                foreach (ManagementObject data in searcher.Get())
-                {
-                    byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
-                    for (int i = 0; i < 42; ++i)
+                    ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
+                    ObjectQuery query = new ObjectQuery(@"SELECT * FROM MSStorageDriver_FailurePredictStatus Where InstanceName like ""%"
+                                                        + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                    ManagementObjectCollection queryCollection = searcher.Get();
+                    foreach (ManagementObject m in queryCollection)
                     {
-                        try
+                        smartDisk.IsOK = (bool)m.Properties["PredictFailure"].Value == false;
+                    }
+
+                    #endregion
+
+                    #region Smart Registers
+                    
+                    smartDisk.SmartAttributes.AddRange(Helper.GetSmartRegisters(Resource.SmartAttributes));
+
+                    searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictData Where InstanceName like ""%"
+                                                         + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+
+                    foreach (ManagementObject data in searcher.Get())
+                    {
+                        byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
+                        for (int i = 0; i < 42; ++i)
                         {
-                            int id = bytes[i * 12 + 2];
-
-                            int flags = bytes[i * 12 + 4]; // least significant status byte, +3 most significant byte, but not used so ignored.
-                                                           //bool advisory = (flags & 0x1) == 0x0;
-                            bool failureImminent = (flags & 0x1) == 0x1;
-                            //bool onlineDataCollection = (flags & 0x2) == 0x2;
-
-                            int value = bytes[i * 12 + 5];
-                            int worst = bytes[i * 12 + 6];
-                            int vendordata = BitConverter.ToInt32(bytes, i * 12 + 7);
-                            if (id == 0) continue;
-
-                            var attr = smartDisk.SmartAttributes.GetAttribute(id);
-                            if (attr != null)
+                            try
                             {
-                                attr.Current = value;
-                                attr.Worst = worst;
-                                attr.Data = vendordata;
-                                attr.IsOK = failureImminent == false;
+                                int id = bytes[i * 12 + 2];
+
+                                int flags = bytes[i * 12 + 4]; // least significant status byte, +3 most significant byte, but not used so ignored.
+                                                               //bool advisory = (flags & 0x1) == 0x0;
+                                bool failureImminent = (flags & 0x1) == 0x1;
+                                //bool onlineDataCollection = (flags & 0x2) == 0x2;
+
+                                int value = bytes[i * 12 + 5];
+                                int worst = bytes[i * 12 + 6];
+                                int vendordata = BitConverter.ToInt32(bytes, i * 12 + 7);
+                                if (id == 0) continue;
+
+                                var attr = smartDisk.SmartAttributes.GetAttribute(id);
+                                if (attr != null)
+                                {
+                                    attr.Current = value;
+                                    attr.Worst = worst;
+                                    attr.Data = vendordata;
+                                    attr.IsOK = failureImminent == false;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                            // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
+                             throw new Exception(ex.Message);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                        // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
-                        throw new Exception(ex.Message);
-                        }
                     }
-                }
 
-                searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictThresholds Where InstanceName like ""%"
-                                                     + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
-                foreach (ManagementObject data in searcher.Get())
-                {
-                    byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
-                    for (int i = 0; i < 42; ++i)
+                    searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictThresholds Where InstanceName like ""%"
+                                                         + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+                    foreach (ManagementObject data in searcher.Get())
                     {
-                        try
+                        byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
+                        for (int i = 0; i < 42; ++i)
                         {
-                            int id = bytes[i * 12 + 2];
-                            int thresh = bytes[i * 12 + 3];
-                            if (id == 0) continue;
-
-                            var attr = smartDisk.SmartAttributes.GetAttribute(id);
-                            if (attr != null)
+                            try
                             {
-                                attr.Threshold = thresh;
+                                int id = bytes[i * 12 + 2];
+                                int thresh = bytes[i * 12 + 3];
+                                if (id == 0) continue;
 
-                             
+                                var attr = smartDisk.SmartAttributes.GetAttribute(id);
+                                if (attr != null)
+                                {
+                                    attr.Threshold = thresh;                                
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                       
+                              throw new Exception(ex.Message);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                        // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
-                          throw new Exception(ex.Message);
-                        }
                     }
-                }
 
-                #endregion
+                    #endregion
                 }
-                catch 
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show("SMART data exception" + Environment.NewLine + ex.Message);
+                    MessageBox.Show(ex.Message);
                     smartDisk.IsOK = false;
                 }
-
-               
 
                 smartDisk.IsSupported = smartDisk.SmartAttributes.Where(sa => sa.HasData).Any();
                 
             }
             catch (Exception ex)
             {
-                throw new Exception("Error retrieving Smart data for one or more drives. " + ex.Message);
+                MessageBox.Show("Disk details exception" + Environment.NewLine + ex.Message);
             }
             smartDisk.SmartAttributes = new SmartAttributeCollection(smartDisk.SmartAttributes.Where(x => x.Current != 0 && x.Worst != 0).ToList());
             return smartDisk;
@@ -154,45 +150,54 @@ namespace DiskBenchmark.Services
 
         public ObservableCollection<Disk> GetDisks()
         {
-                //IEnumerable<Disk> disks = new IEnumerable<Disk>();
-            ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
             var disks = new ObservableCollection<Disk>();
-            ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
 
-            foreach (ManagementObject disk in searcher.Get())
+            try
             {
-                Disk newDisk = new Disk();
-                newDisk.Caption = disk["Model"].ToString();
-                newDisk.DeviceID = disk["DeviceID"].ToString();
-                newDisk.SerialNumber = disk["SerialNumber"].ToString();
-                newDisk.Size = ulong.Parse(disk["Size"].ToString());
-                newDisk.PnpDeviceID = disk["PNPDeviceID"].ToString();
-
-                ObjectQuery partitionQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskDrive.DeviceID='{newDisk.DeviceID}'}} WHERE AssocClass = Win32_DiskDriveToDiskPartition");
-                ManagementObjectSearcher partitionSearcher = new ManagementObjectSearcher(scope, partitionQuery);
-
-                foreach (ManagementObject partition in partitionSearcher.Get())
+                ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
+                ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                foreach (ManagementObject disk in searcher.Get())
                 {
+                    Disk newDisk = new Disk();
+                    newDisk.Caption = disk["Model"] != null ? disk["Model"].ToString() : "None";
+                    newDisk.DeviceID = disk["DeviceID"] != null ? disk["DeviceID"].ToString() : "None";
+                    newDisk.SerialNumber = disk["SerialNumber"] != null ? disk["SerialNumber"].ToString() : "None";
+                    newDisk.Size = disk["Size"] != null ? ulong.Parse(disk["Size"].ToString()) : 0;
+                    newDisk.PnpDeviceID = disk["PNPDeviceID"] != null ? disk["PNPDeviceID"].ToString() : "None";
 
-                    ObjectQuery logicalDiskQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass = Win32_LogicalDiskToPartition");
-                    ManagementObjectSearcher logicalDiskSearcher = new ManagementObjectSearcher(scope, logicalDiskQuery);
+                    ObjectQuery partitionQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskDrive.DeviceID='{newDisk.DeviceID}'}} WHERE AssocClass = Win32_DiskDriveToDiskPartition");
+                    ManagementObjectSearcher partitionSearcher = new ManagementObjectSearcher(scope, partitionQuery);
 
-                    foreach (ManagementObject logicalDisk in logicalDiskSearcher.Get())
+                    foreach (ManagementObject partition in partitionSearcher.Get())
                     {
-                        LogicalDisk newLogicalDisk = new LogicalDisk();
-                        newLogicalDisk.Caption = logicalDisk["Caption"].ToString();
-                        newLogicalDisk.DeviceID = logicalDisk["DeviceID"].ToString();
-                        newLogicalDisk.FileSystem = logicalDisk["FileSystem"].ToString();
-                        newLogicalDisk.Size = ulong.Parse(logicalDisk["Size"].ToString());
-                        newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"].ToString());
-                        newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
-                        newDisk.LogicalDisks.Add(newLogicalDisk);
-                        
+
+                        ObjectQuery logicalDiskQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass = Win32_LogicalDiskToPartition");
+                        ManagementObjectSearcher logicalDiskSearcher = new ManagementObjectSearcher(scope, logicalDiskQuery);
+
+                        foreach (ManagementObject logicalDisk in logicalDiskSearcher.Get())
+                        {
+                            LogicalDisk newLogicalDisk = new LogicalDisk();
+                            newLogicalDisk.Caption = logicalDisk["Caption"] != null ? logicalDisk["Caption"].ToString() : "None";
+                            newLogicalDisk.DeviceID = logicalDisk["DeviceID"] != null ? logicalDisk["DeviceID"].ToString() : "None";
+                            newLogicalDisk.FileSystem = logicalDisk["FileSystem"] != null ? logicalDisk["FileSystem"].ToString() : "None";
+                            newLogicalDisk.Size = logicalDisk["Size"] != null ? ulong.Parse(logicalDisk["Size"].ToString()) : 0;
+                            newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"].ToString());
+                            newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
+                            newDisk.LogicalDisks.Add(newLogicalDisk);
+
+                        }
                     }
+                    disks.Add(newDisk);
                 }
-                disks.Add(newDisk);      /*     disks.Add(newDisk);*/
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Disks List exception" + Environment.NewLine + ex.Message);
+            }
+                //IEnumerable<Disk> disks = new IEnumerable<Disk>();
+           
             return disks;
             
         }

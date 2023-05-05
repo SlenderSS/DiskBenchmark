@@ -18,4 +18,6 @@
                 Value="22,0,0,0" />
 
     </Style>
+    <Image x:Key="app_ico" Source="Resources/Images/app_ico.ico"/>
+    
 </ResourceDictionary>
