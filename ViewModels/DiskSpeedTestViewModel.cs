@@ -187,25 +187,20 @@ namespace DiskBenchmark.ViewModels
 
         public DiskSpeedTestViewModel()
         {
-
             Task.Run(async () =>
             {
                 while (true)
                 {
-
                     try
                     {
-                        var updateDrives = DriveInfo.GetDrives().Where(x => x.AvailableFreeSpace > DisksService.FILE_SIZE).ToArray();
+                        var updateDrives = DriveInfo.GetDrives().Where(x => x.IsReady && x.AvailableFreeSpace > DisksService.FILE_SIZE).ToArray();
                         if (updateDrives.Length != Drives.Length || SelectedDrive == null)
                             Drives = updateDrives;
                     }
                     catch (Exception ex)
                     {
-
                         MessageBox.Show(ex.Message);
                     }
-                    
-
                     await Task.Delay(5000);
                 }
             });

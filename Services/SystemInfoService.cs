@@ -38,11 +38,10 @@ namespace DiskBenchmark.Services
                 //execute the query
                 foreach (ManagementObject process in searcher.Get())
                 {
-                    //print system info
-                    process.Get();
+                    
                    
-                    sysInfo.OSManufacturer = "System Manufacturer: " + process["Manufacturer"].ToString();
-                    sysInfo.Model = "System Model: " + process["Model"].ToString();
+                    sysInfo.OSManufacturer = "System Manufacturer: " + process["Manufacturer"] != null ? process["Manufacturer"].ToString() : "None";
+                    sysInfo.Model = "System Model: " + process["Model"] != null ? process["Model"].ToString() : "None";
 
 
                 }

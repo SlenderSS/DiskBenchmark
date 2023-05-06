@@ -182,7 +182,7 @@ namespace DiskBenchmark.Services
                             newLogicalDisk.DeviceID = logicalDisk["DeviceID"] != null ? logicalDisk["DeviceID"].ToString() : "None";
                             newLogicalDisk.FileSystem = logicalDisk["FileSystem"] != null ? logicalDisk["FileSystem"].ToString() : "None";
                             newLogicalDisk.Size = logicalDisk["Size"] != null ? ulong.Parse(logicalDisk["Size"].ToString()) : 0;
-                            newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"].ToString());
+                            newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"] != null ? logicalDisk["FreeSpace"].ToString() : "0");
                             newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
                             newDisk.LogicalDisks.Add(newLogicalDisk);
 
