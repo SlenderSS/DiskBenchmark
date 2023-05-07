@@ -91,7 +91,7 @@
                             
                             <StackPanel>
                                 <TextBlock Text="S.M.A.R.T Support: " Style="{StaticResource Text_Style5}"/>
-                                <CheckBox  IsChecked="{Binding SmartDisk.IsSupported}" VerticalAlignment="Bottom" Style="{StaticResource ToggleButtonCheckBox}"  IsEnabled="False"/>
+                                <CheckBox  IsChecked="{Binding SmartDisk.IsSupported}" VerticalAlignment="Bottom"  Style="{StaticResource ToggleButtonCheckBox}"  IsEnabled="False"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

@@ -19,11 +19,11 @@ namespace DiskBenchmark.Services
             {
                 if (managementObject["Caption"] != null)
                 {
-                    sysInfo.SystemName = "Operating System: " + managementObject["Caption"].ToString();   //Display operating system caption
+                    sysInfo.SystemName = "Operating System: " + (managementObject["Caption"] != null ? managementObject["Caption"].ToString() : "None");   //Display operating system caption
                 }
                 if (managementObject["OSArchitecture"] != null)
                 {
-                     sysInfo.OSArchitecture =  "Architecture: " + managementObject["OSArchitecture"].ToString();   //Display operating system architecture.
+                     sysInfo.OSArchitecture =  "Architecture: " + (managementObject["OSArchitecture"] != null ? managementObject["OSArchitecture"].ToString() : "None");   //Display operating system architecture.
                 }
                 
                 sysInfo.CPUName = "CPU name: " + GetProcessorInfo();
@@ -33,15 +33,15 @@ namespace DiskBenchmark.Services
             SelectQuery query = new SelectQuery(@"Select * from Win32_ComputerSystem");
 
            
-            using (ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query))
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
             {
                 //execute the query
                 foreach (ManagementObject process in searcher.Get())
                 {
                     
                    
-                    sysInfo.OSManufacturer = "System Manufacturer: " + process["Manufacturer"] != null ? process["Manufacturer"].ToString() : "None";
-                    sysInfo.Model = "System Model: " + process["Model"] != null ? process["Model"].ToString() : "None";
+                    sysInfo.OSManufacturer = "System Manufacturer: " + (process["Manufacturer"] != null ? process["Manufacturer"].ToString() : "None");
+                    sysInfo.Model = "System Model: " + (process["Model"] != null ? process["Model"].ToString() : "None");
 
 
                 }
