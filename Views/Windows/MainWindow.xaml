@@ -4,11 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiskBenchmark"
+        xmlns:view="clr-namespace:DiskBenchmark.Views"
         xmlns:cmd="clr-namespace:DiskBenchmark.Infrastructure.Commands"
         xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
         xmlns:models="clr-namespace:DiskBenchmark.Models"
         xmlns:convert="clr-namespace:DiskBenchmark.Infrastructure.Converters"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Height="550"
         Width="1000"
@@ -24,6 +27,7 @@
         <cmd:MinimizeWindowCommand x:Key="MinimizeWindowCommand"/>
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
         <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
+        <cmd:SetNormalWindowCommand x:Key="SetNormalWindowCommand"/>
     </Window.Resources>
     
     <Window.DataContext>
@@ -35,6 +39,22 @@
         <Grid.InputBindings>
             <MouseBinding Gesture="LeftClick" Command="{StaticResource MoveWindowCommand}"/>
         </Grid.InputBindings>
+
+        <tb:TaskbarIcon x:Name="TaskBarIcon" Visibility="Visible" ToolTip="DiskBenchmark" DoubleClickCommand="{StaticResource SetNormalWindowCommand}" IconSource="app_ico.ico">
+           
+            <tb:TaskbarIcon.TrayPopup>
+                <Grid Width="180">
+                    <Border Style="{StaticResource BorderStyle2}" CornerRadius="10" >
+                        <StackPanel Margin="10,10">
+                            <Button Content="Home" Style="{StaticResource RoundedButtonTaskBarStyle}" Command="{Binding HomeCommand}" Height="30" Margin="0 7"/>
+                            <Button Content="Connected disks" Style="{StaticResource RoundedButtonTaskBarStyle}" Command="{Binding DisksListCommand}" Height="30" Margin="0 5"/>
+                            <Button Content="Disk test benchnark" Style="{StaticResource RoundedButtonTaskBarStyle}" Command="{Binding DisksTestCommand}" Height="30" Margin="0 5"/>
+                            <Button Content="Exit" Style="{StaticResource RoundedButtonTaskBarStyle}" Command="{StaticResource CloseAppCommand}" Height="30"  Margin="0 5"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </tb:TaskbarIcon.TrayPopup>
+        </tb:TaskbarIcon>
 
         <Border  CornerRadius="20" Background="#272B2F" />
 

@@ -96,7 +96,7 @@ namespace DiskBenchmark.Services
                             catch (Exception ex)
                             {
                             // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
-                             throw new Exception(ex.Message);
+                               MessageBox.Show(ex.Message);
                             }
                         }
                     }
@@ -122,8 +122,7 @@ namespace DiskBenchmark.Services
                             }
                             catch (Exception ex)
                             {
-                       
-                              throw new Exception(ex.Message);
+                                MessageBox.Show(ex.Message);
                             }
                         }
                     }
@@ -132,8 +131,8 @@ namespace DiskBenchmark.Services
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("SMART data exception" + Environment.NewLine + ex.Message);
                     MessageBox.Show(ex.Message);
+                    
                     smartDisk.IsOK = false;
                 }
 
@@ -142,7 +141,7 @@ namespace DiskBenchmark.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Disk details exception" + Environment.NewLine + ex.Message);
+                MessageBox.Show( ex.Message);
             }
             smartDisk.SmartAttributes = new SmartAttributeCollection(smartDisk.SmartAttributes.Where(x => x.Current != 0 && x.Worst != 0).ToList());
             return smartDisk;
@@ -194,9 +193,8 @@ namespace DiskBenchmark.Services
             catch (Exception ex)
             {
 
-                MessageBox.Show("Disks List exception" + Environment.NewLine + ex.Message);
+                MessageBox.Show(ex.Message);
             }
-                //IEnumerable<Disk> disks = new IEnumerable<Disk>();
            
             return disks;
             
