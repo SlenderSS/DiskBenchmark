@@ -64,12 +64,11 @@ namespace DiskBenchmark.ViewModels
         private DiskTestInformation _randomRead;
         public DiskTestInformation RandomRead { get => _randomRead; set { Set(ref _randomRead, value); OnPropertyChanged(); } }
         #endregion
-
-
         #region Memory Copy
         private DiskTestInformation _memoryCopy;
         public DiskTestInformation MemoryCopy { get => _memoryCopy; set { Set(ref _memoryCopy, value); OnPropertyChanged(); } }
         #endregion
+
         public PlotModel MyModel { get; private set; }
         public ICommand DiskTeskCommand => new LambdaCommand(
                   async (a) => {
@@ -78,12 +77,11 @@ namespace DiskBenchmark.ViewModels
                       int testCounter = -1;
                       await Task.Run(() =>
                       {
-                          
-
                           SequentialWrite.Clear();
                           SequentialRead.Clear();
                           RandomWrite.Clear();
                           RandomRead.Clear();
+                          MemoryCopy.Clear();
                           using (testSuite)
                           {
                                string currentTest = null;
