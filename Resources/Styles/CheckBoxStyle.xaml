@@ -1,0 +1,75 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    >
+
+
+    <SolidColorBrush x:Key="WhiteBrush" Color="White" p:Freeze="True"/>
+
+    <!--форма переключателя-->
+    <ControlTemplate x:Key="ToggleButtonCheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <ControlTemplate.Resources>
+            <SolidColorBrush x:Key="ToggleButton.CheckedBackgroundBrush" p:Freeze="true">#54BDCD</SolidColorBrush>
+            <SolidColorBrush x:Key="ToggleButton.UnCheckedBackgroundBrush" p:Freeze="true">#F76161</SolidColorBrush>
+        </ControlTemplate.Resources>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="Conteiner" 
+                          Height="18"
+                          Width="33.3"
+                          Margin="0" 
+                          VerticalAlignment="Top" 
+                          HorizontalAlignment="Left">
+                <Border x:Name="Back" 
+                        ClipToBounds="True"
+                        Height="17.5" 
+                        Width="32"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        CornerRadius="9">
+                    <Ellipse x:Name="Dot" 
+                             Fill="{StaticResource WhiteBrush}"
+                             Height="16" 
+                             Width="16" 
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center">
+                    </Ellipse>
+                </Border>
+            </Grid>
+            <ContentPresenter x:Name="content" 
+                              Grid.Column="1" 
+                              Margin="{TemplateBinding Padding}"
+                              Focusable="False" 
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                              RecognizesAccessKey="True" 
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger SourceName="Dot" Property="IsMouseOver" Value="True">
+                <Setter TargetName="Dot" Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Dot" Property="Margin" Value="0, 0, -14, 0"/>
+                <Setter TargetName="Back" Property="Background" Value="{StaticResource ToggleButton.CheckedBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter TargetName="Dot" Property="Margin" Value="-14, 0, 0, 0"/>
+                <Setter TargetName="Back" Property="Background" Value="{StaticResource ToggleButton.UnCheckedBackgroundBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="ToggleButtonCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Padding" Value="5,0,0,0"/>
+        <Setter Property="Template" Value="{StaticResource ToggleButtonCheckBoxTemplate}"/>
+    </Style>
+</ResourceDictionary>
