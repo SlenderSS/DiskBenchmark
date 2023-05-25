@@ -14,5 +14,6 @@ namespace DiskBenchmark.Models
         public string Model { get; set; }
         public string CPUName { get; set; }
         public string BIOSVersion { get; set; }
+        public string GPUName { get; set; }
     }
 }

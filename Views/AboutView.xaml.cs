@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DiskBenchmark.Views
 {
     /// <summary>
-    /// Interaction logic for TaskBarContextMenu.xaml
+    /// Interaction logic for About.xaml
     /// </summary>
-    public partial class TaskBarContextMenu : UserControl
+    public partial class AboutView : UserControl
     {
-        public TaskBarContextMenu()
+        public AboutView()
         {
             InitializeComponent();
         }

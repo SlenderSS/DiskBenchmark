@@ -108,40 +108,26 @@
 
 
 
-    <ImageBrush x:Key="close_app_def"
-                ImageSource="/Resources/Images/shutdown_def.png"
-                Stretch="None" />
+    <ImageBrush x:Key="close_app_def" ImageSource="/Resources/Images/close_none.png" Stretch="Fill" />
+    <ImageBrush x:Key="close_app_mo" ImageSource="/Resources/Images/close_act.png" Stretch="Fill" />
 
-    <ImageBrush x:Key="close_app_mo"
-      
-                ImageSource="/Resources/Images/shutdown_mo.png"
-                Stretch="None" />
+    <ImageBrush x:Key="Backward1" ImageSource="/Resources/Images/back1.png" Stretch="Fill" />
+    <ImageBrush x:Key="Backward2" ImageSource="/Resources/Images/back2.png" Stretch="Fill" />
 
-    <ImageBrush x:Key="Backward1"
-                ImageSource="/Resources/Images/back1.png"
-                Stretch="Fill" />
+    <ImageBrush x:Key="About1" ImageSource="/Resources/Images/about_none.png" Stretch="Fill" />
+    <ImageBrush x:Key="About2" ImageSource="/Resources/Images/about_act.png" Stretch="Fill" />
 
-    <ImageBrush x:Key="Backward2"
-      
-                ImageSource="/Resources/Images/back2.png"
-                Stretch="Fill" />
-    <ImageBrush x:Key="Minimize1"
-                ImageSource="/Resources/Images/minimize_no.png"
-                Stretch="Fill" />
-    <ImageBrush x:Key="Minimize2"
-                ImageSource="/Resources/Images/minimize_act.png"
-                Stretch="Fill" />
-    
+    <ImageBrush x:Key="Minimize1" ImageSource="/Resources/Images/minimize_no.png" Stretch="Fill" />
+    <ImageBrush x:Key="Minimize2" ImageSource="/Resources/Images/minimize_act.png" Stretch="Fill" />
+
 
     <Style x:Key="ExitApp"
            TargetType="{x:Type Button}">
-
-
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Height"
-                Value="40" />
+                Value="30" />
         <Setter Property="Width"
-                Value="40" />
+                Value="30" />
         <Setter Property="HorizontalAlignment"
                 Value="Right" />
         <Setter Property="VerticalAlignment"
@@ -241,15 +227,15 @@
 
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Height"
-                Value="34" />
+                Value="30" />
         <Setter Property="Width"
-                Value="34" />
+                Value="30" />
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="Margin"
-                Value="10,9,0,0" />
+                Value="10,0,0,0" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -278,22 +264,54 @@
         </Setter>
     </Style>
 
-    <!--<Style x:Key="RoundButton" TargetType="Button">
-        <Setter Property="Background" Value="#93C0E3"/>
-        <Setter Property="Foreground" Value="#CCDEEC"/>
-        <Setter Property="FontSize" Value="25"/>
+    <Style x:Key="AboutAppButtonStyle"
+           TargetType="{x:Type ToggleButton}">
+
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Height"
+                Value="30" />
+        <Setter Property="Width"
+                Value="30" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="10,0,0,0" />
+
         <Setter Property="Template">
-       
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="20" Background="#61A1D3" BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="{StaticResource About1}">
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource About2}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource About2}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 
+    
+    
+    
+    
+    
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>

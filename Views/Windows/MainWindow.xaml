@@ -26,6 +26,8 @@
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
         <cmd:MinimizeWindowCommand x:Key="MinimizeWindowCommand"/>
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
+        <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        
         <cmd:MoveWindowCommand x:Key="MoveWindowCommand"/>
         <cmd:SetNormalWindowCommand x:Key="SetNormalWindowCommand"/>
     </Window.Resources>
@@ -40,7 +42,14 @@
             <MouseBinding Gesture="LeftClick" Command="{StaticResource MoveWindowCommand}"/>
         </Grid.InputBindings>
 
-        <tb:TaskbarIcon x:Name="TaskBarIcon" Visibility="Visible" ToolTip="DiskBenchmark" DoubleClickCommand="{StaticResource SetNormalWindowCommand}" IconSource="app_ico.ico">
+        <tb:TaskbarIcon x:Name="TaskBarIcon" Visibility="Visible" DoubleClickCommand="{StaticResource SetNormalWindowCommand}" IconSource="app_ico.ico">
+            <tb:TaskbarIcon.ToolTip>
+                <TextBlock>
+                    Click to open context menu
+                    <LineBreak/>
+                    DoubleClick to open application
+                </TextBlock>
+            </tb:TaskbarIcon.ToolTip>
            
             <tb:TaskbarIcon.TrayPopup>
                 <Grid Width="180">
@@ -67,9 +76,37 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="700*"/>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <DockPanel Grid.Column="1">
+                <TextBlock Grid.Column="0" Text="{Binding Title}" Style="{StaticResource Text_Style}" FontSize="24"/>
+
+                <ToggleButton x:Name="AboutTB"  Grid.Column="1"  Style="{StaticResource AboutAppButtonStyle}" HorizontalAlignment="Right" Margin="0 0 20 0"
+                             ToolTip="Help">
+                    <ToggleButton.Triggers>
+
+                       
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                           
+                            <BeginStoryboard>
+                                <Storyboard x:Name="HideStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="AboutPanel" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="400" To="0" Duration="0:0:0.5"/>
+                                    
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <BeginStoryboard>
+                                <Storyboard x:Name="ShowStackPanel">
+                                    <DoubleAnimation Storyboard.TargetName="AboutPanel" Storyboard.TargetProperty="Width" BeginTime="0:0:0" From="0" To="400" Duration="0:0:0.5"/>
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ToggleButton.Triggers>
+                </ToggleButton>
+                <DockPanel Grid.Column="2">
+                    
                     <Button Style="{StaticResource MinimizeWindowStyle}"
                             Command="{StaticResource MinimizeWindowCommand}" ToolTip="Click to minimize window"/>
                     <Button Style="{StaticResource ExitApp}"
@@ -82,7 +119,8 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="220"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 
                 <Grid HorizontalAlignment="Left"
@@ -92,7 +130,7 @@
                         CornerRadius="20,0,0,20" />
 
                     <StackPanel Height="500"
-                            Width="228">
+                            Width="228" Margin="0 50">
                         <RadioButton Style="{StaticResource BtnStyle}"
                               Command="{Binding HomeCommand}" ToolTip="Click to go home page">
 
@@ -109,7 +147,7 @@
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Inbox" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
-                                <TextBlock Text="Connected disks" Style="{StaticResource Text_Style}" />
+                                <TextBlock Text="View disks" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
@@ -120,7 +158,7 @@
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Connectdevelop" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
-                                <TextBlock Text="Disks Benchmark" Style="{StaticResource Text_Style}" />
+                                <TextBlock Text="Benchmark" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
@@ -134,10 +172,13 @@
 
                 <Grid Grid.Column="1">
 
-                    <ContentControl x:Name="Pages" Content="{Binding CurrentView}" Grid.ColumnSpan="2" />
+                    <ContentControl x:Name="Pages" Content="{Binding CurrentView}" />
 
                 </Grid>
-
+                <Grid x:Name="AboutPanel" Visibility="{Binding IsChecked, ElementName=AboutTB, Converter={StaticResource BooleanToVisibilityConverter}}"  Grid.Column="2">
+                    
+                    <ContentControl Content="{Binding AboutView}"/>
+                </Grid>
             </Grid>
 
 

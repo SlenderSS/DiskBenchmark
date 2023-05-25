@@ -18,7 +18,7 @@
                     <Style.Triggers>
                        
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="LightCyan" />
+                            <Setter Property="Background" Value="#83898C" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -30,13 +30,13 @@
                     <Style.Triggers>
                       
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="#ff66ccff" />
+                            <Setter Property="Background" Value="#848788" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="Foreground" Value="Black" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="#ff66ccff" />
-                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="Background" Value="#848788" />
+                            <Setter Property="BorderBrush" Value="#848788" />
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Foreground" Value="Black" />
                         </Trigger>

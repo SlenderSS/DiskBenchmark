@@ -28,7 +28,9 @@
                       ItemsSource="{Binding Disks, UpdateSourceTrigger=PropertyChanged}" 
                       HorizontalContentAlignment="Center"
                       SelectedItem="{Binding SelectedDisk}"
-                      SelectionMode="Single"               
+                      SelectionMode="Single"    
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      
                       >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

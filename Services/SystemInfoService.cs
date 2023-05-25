@@ -15,15 +15,15 @@ namespace DiskBenchmark.Services
         {
             var sysInfo = new SystemInfo();
             ManagementObjectSearcher mos = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
-            foreach (ManagementObject managementObject in mos.Get())
+            foreach (ManagementObject obj in mos.Get())
             {
-                if (managementObject["Caption"] != null)
+                if (obj["Caption"] != null)
                 {
-                    sysInfo.SystemName = "Operating System: " + (managementObject["Caption"] != null ? managementObject["Caption"].ToString() : "None");   //Display operating system caption
+                    sysInfo.SystemName = "Operating System: " + (obj["Caption"] != null ? obj["Caption"].ToString() : "None");   //Display operating system caption
                 }
-                if (managementObject["OSArchitecture"] != null)
+                if (obj["OSArchitecture"] != null)
                 {
-                     sysInfo.OSArchitecture =  "Architecture: " + (managementObject["OSArchitecture"] != null ? managementObject["OSArchitecture"].ToString() : "None");   //Display operating system architecture.
+                     sysInfo.OSArchitecture =  "Architecture: " + (obj["OSArchitecture"] != null ? obj["OSArchitecture"].ToString() : "None");   //Display operating system architecture.
                 }
                 
                 sysInfo.CPUName = "CPU name: " + GetProcessorInfo();
@@ -35,15 +35,11 @@ namespace DiskBenchmark.Services
            
             using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
             {
-                //execute the query
-                foreach (ManagementObject process in searcher.Get())
+               
+                foreach (ManagementObject obj in searcher.Get())
                 {
-                    
-                   
-                    sysInfo.OSManufacturer = "System Manufacturer: " + (process["Manufacturer"] != null ? process["Manufacturer"].ToString() : "None");
-                    sysInfo.Model = "System Model: " + (process["Model"] != null ? process["Model"].ToString() : "None");
-
-
+                    sysInfo.OSManufacturer = "System Manufacturer: " + (obj["Manufacturer"] != null ? obj["Manufacturer"].ToString() : "None");
+                    sysInfo.Model = "System Model: " + (obj["Model"] != null ? obj["Model"].ToString() : "None");
                 }
             }
             ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
@@ -54,6 +50,14 @@ namespace DiskBenchmark.Services
                     sysInfo.BIOSVersion = "BIOS VERSION: " + ((string[])obj["BIOSVersion"])[0] + " - " + ((string[])obj["BIOSVersion"])[1];
                 else
                     sysInfo.BIOSVersion =  "BIOS VERSION: " + ((string[])obj["BIOSVersion"])[0];
+            }
+            using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    sysInfo.GPUName = "GPUName: " + obj["Name"];
+                   
+                }
             }
 
             return sysInfo;

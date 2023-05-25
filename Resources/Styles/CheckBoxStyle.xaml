@@ -5,8 +5,7 @@
 
 
     <SolidColorBrush x:Key="WhiteBrush" Color="White" p:Freeze="True"/>
-
-    <!--форма переключателя-->
+  
     <ControlTemplate x:Key="ToggleButtonCheckBoxTemplate" TargetType="{x:Type CheckBox}">
         <ControlTemplate.Resources>
             <SolidColorBrush x:Key="ToggleButton.CheckedBackgroundBrush" p:Freeze="true">#54BDCD</SolidColorBrush>

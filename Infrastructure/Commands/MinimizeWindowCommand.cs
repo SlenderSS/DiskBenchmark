@@ -13,8 +13,8 @@ namespace DiskBenchmark.Infrastructure.Commands
 
         public override void Execute(object parameter)
         {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;    
-            
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            Application.Current.MainWindow.Hide();
         }
     }
 }

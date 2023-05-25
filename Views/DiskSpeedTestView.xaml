@@ -21,7 +21,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <DockPanel>
-                    <ComboBox ItemsSource="{Binding Drives}" FontSize="20" ToolTip="Click to select drive for speed-testing" SelectedItem="{Binding SelectedDrive}" Width="450" Margin="50,10"/>
+                    <ComboBox ItemsSource="{Binding Drives}" FontSize="20" SelectedIndex="0" ToolTip="Click to select drive for speed-testing" SelectedItem="{Binding SelectedDrive}" Width="450" Margin="50,10"/>
                     <Button Style="{StaticResource RoundedButtonStyle}" ToolTip="Click to start speed-testing" Content="Start testing" Command="{Binding DiskTeskCommand}"  Margin="0,10,50,10"/>
                 </DockPanel>
 
@@ -31,33 +31,33 @@
                            Background="Transparent" Foreground="#FF4A8DBB" />
                 
                 </Border>
-                <StackPanel Grid.Row="2" Orientation="Vertical" Margin="50,0">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="50,0">
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Sequential write: " Style="{StaticResource Text_Style5}"/>
-                        <Rectangle Width="15" Height="15" Fill="{StaticResource SequentialWrite}" StrokeThickness="2"/>
-                        <TextBlock Text="{Binding SequentialWrite.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                        <TextBlock Text="Sequential write:" HorizontalAlignment="Right" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="Sequential read:" HorizontalAlignment="Right" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="Random write:" HorizontalAlignment="Right" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="Random read:" HorizontalAlignment="Right" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="Memory copy:" HorizontalAlignment="Right" Style="{StaticResource Text_Style5}"/>
+                        
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text=" Sequential read: " Style="{StaticResource Text_Style5}"/>
-                        <Rectangle Width="15" Height="15" Fill="{StaticResource SequentialRead}" StrokeThickness="2"/>
-                        <TextBlock Text="{Binding SequentialRead.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    
+                    
+                    <StackPanel Orientation="Vertical">
+                        <Ellipse Width="15" Height="15" Fill="{StaticResource SequentialWrite}" Margin="5,5,0,5"/>
+                        <Ellipse Width="15" Height="15" Fill="{StaticResource SequentialRead}" Margin="5,3,0,5"/>
+                        <Ellipse Width="15" Height="15" Fill="{StaticResource RandomWrite}" Margin="5,3,0,5"/>
+                        <Ellipse Width="15" Height="15" Fill="{StaticResource RandomRead}" Margin="5,3,0,0"/>
+                        <Ellipse Width="15" Height="15" Fill="{StaticResource MemoryCopy}" Margin="5,8,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="   Random write: " Style="{StaticResource Text_Style5}"/>
-                        <Rectangle Width="15" Height="15" Fill="{StaticResource RandomWrite}" StrokeThickness="2"/>
-                        <TextBlock Text="{Binding RandomWrite.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding SequentialWrite.Status}" Margin="10 5 0 0" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="{Binding SequentialRead.Status}" Margin="10 5 0 0" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="{Binding RandomWrite.Status}" Margin="10 5 0 0" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="{Binding RandomRead.Status}" Margin="10 5 0 0" Style="{StaticResource Text_Style5}"/>
+                        <TextBlock Text="{Binding MemoryCopy.Status}" Margin="10 5 0 0" Style="{StaticResource Text_Style5}"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="    Random read: " Style="{StaticResource Text_Style5}"/>
-                        <Rectangle Width="15" Height="15" Fill="{StaticResource RandomRead}" StrokeThickness="2"/>
-                        <TextBlock Text="{Binding RandomRead.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="   Memory copy: " Style="{StaticResource Text_Style5}"/>
-                        <Rectangle Width="15" Height="15" Fill="{StaticResource MemoryCopy}" StrokeThickness="2"/>
-                        <TextBlock Text="{Binding MemoryCopy.Status}" Margin="20 5 0 0" Style="{StaticResource Text_Style5}"/>
-                    </StackPanel>
+                    
                 </StackPanel>
                 
             </Grid>

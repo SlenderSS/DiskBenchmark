@@ -84,9 +84,9 @@ namespace DiskBenchmark.ViewModels
                           MemoryCopy.Clear();
                           using (testSuite)
                           {
-                               string currentTest = null;
+                              string currentTest = null;
                              
-                               var breakTest = false;
+                              var breakTest = false;
                               DiskTestInformation current = new DiskTestInformation();
 
                               testSuite.StatusUpdate += (sender, e) =>
@@ -120,8 +120,8 @@ namespace DiskBenchmark.ViewModels
                                       }                                  
                                    }
 
-                                   if (e.Status != TestStatus.Completed)
-                                   {
+                                  if (e.Status != TestStatus.Completed)
+                                  {
 
                                       switch (e.Status)
                                       {
@@ -204,7 +204,7 @@ namespace DiskBenchmark.ViewModels
             });
 
             var color = OxyColor.FromRgb(138, 197, 206);
-            this.MyModel = new PlotModel { Title = "Write/Read speed benchmark test", TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
+            MyModel = new PlotModel { Title = "Write/Read speed benchmark test", TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
             MyModel.PlotAreaBorderColor = color;
 
             var speedAxis = new LinearAxis()
@@ -220,7 +220,6 @@ namespace DiskBenchmark.ViewModels
                 MinorGridlineStyle = LineStyle.Dot
 
             };
-
             var progressAxis = new LinearAxis()
             {                
                 IsAxisVisible = true,
@@ -280,8 +279,6 @@ namespace DiskBenchmark.ViewModels
                     Color = OxyColor.FromRgb(101, 211, 187)
                 }
             };
-
-
             MemoryCopy = new DiskTestInformation
             {
                 Series = new LineSeries()
@@ -293,10 +290,11 @@ namespace DiskBenchmark.ViewModels
                 }
             };
 
-            this.MyModel.Series.Add(SequentialWrite.Series);
-            this.MyModel.Series.Add(SequentialRead.Series);
-            this.MyModel.Series.Add(RandomWrite.Series);
-            this.MyModel.Series.Add(RandomRead.Series);
+            MyModel.Series.Add(SequentialWrite.Series);
+            MyModel.Series.Add(SequentialRead.Series);
+            MyModel.Series.Add(RandomWrite.Series);
+            MyModel.Series.Add(RandomRead.Series);
+            
             //this.MyModel.Series.Add(MemoryCopy.Series);
 
 

@@ -287,6 +287,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\Langs\en-US.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Langs\ua.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Styles\BorderStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -319,10 +327,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\ListBoxStyles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Styles\PageStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -336,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\TextStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -355,10 +363,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TaskBarContextMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -374,8 +378,10 @@
     <Compile Include="Infrastructure\Commands\MoveWindowCommand.cs" />
     <Compile Include="Infrastructure\Commands\SetNormalWindowCommand.cs" />
     <Compile Include="Infrastructure\Common\Helper.cs" />
+    <Compile Include="Infrastructure\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Converters\BytesToGigabytes.cs" />
     <Compile Include="Infrastructure\Converters\Converter.cs" />
+    <Compile Include="Models\View.cs" />
     <Compile Include="Models\Disk.cs" />
     <Compile Include="Models\DiskTestInformation.cs" />
     <Compile Include="Models\LogicalDisk.cs" />
@@ -386,12 +392,16 @@
     <Compile Include="Models\SystemInfo.cs" />
     <Compile Include="Services\DisksService.cs" />
     <Compile Include="Services\SystemInfoService.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\ConnectedDisksViewModel.cs" />
     <Compile Include="ViewModels\DiskDetailsViewModel.cs" />
     <Compile Include="ViewModels\DiskSpeedTestViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainWIndowViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConnectedDisksView.xaml.cs">
       <DependentUpon>ConnectedDisksView.xaml</DependentUpon>
     </Compile>
@@ -403,9 +413,6 @@
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TaskBarContextMenu.xaml.cs">
-      <DependentUpon>TaskBarContextMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -450,14 +457,11 @@
     <Resource Include="Views\Windows\app_ico.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Resources\Images\Drive.png" />
+    <Resource Include="Resources\Images\close_act.png" />
+    <Resource Include="Resources\Images\close_none.png" />
     <Resource Include="Resources\Images\hdd.png" />
     <Resource Include="Resources\Images\back2.png" />
     <Resource Include="Resources\Images\back1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\shutdown_def.png" />
-    <Resource Include="Resources\Images\shutdown_mo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -470,6 +474,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\about_act.png" />
+    <Resource Include="Resources\Images\about_none.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('packages\Fody.6.5.5\build\Fody.targets')" />

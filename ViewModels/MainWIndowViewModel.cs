@@ -10,6 +10,7 @@ using DiskBenchmark.ViewModels.Base;
 using System.Collections.ObjectModel;
 using DiskBenchmark.Models;
 using System.Management;
+using DiskBenchmark.Services;
 
 namespace DiskBenchmark.ViewModels
 {
@@ -21,7 +22,7 @@ namespace DiskBenchmark.ViewModels
 
         #endregion
 
-      
+        #region Current view
         private object _currentView;
         public object CurrentView { get => _currentView; set 
             {
@@ -30,31 +31,66 @@ namespace DiskBenchmark.ViewModels
             }
         }
 
+        #endregion
+
+        #region Current view
+        private object _about;
+        public object AboutView
+        {
+            get => _about; set
+            {
+                _about = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        public SystemInfoService SystemInfoService { get; }
+        private SystemInfo _systemInfo;
+        public SystemInfo SystemInfo { get => _systemInfo; set { Set(ref _systemInfo, value); OnPropertyChanged(); } }
+
+        #region Commands
         public ICommand HomeCommand { get; set; }
         public ICommand DisksListCommand { get; set; }
         public ICommand DiskDetailsCommand { get; set; }
         public ICommand DisksTestCommand { get; set; }
+        public ICommand AboutCommand { get; set; }
+        
 
+
+
+       
 
         private void Home(object obj)
         {
             if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
-            CurrentView = new HomeViewModel();
+            }
+            CurrentView = new HomeViewModel(SystemInfo);
+            AboutView = new AboutViewModel(View.Home);
         }
-
         private void DisksList(object obj)
         {
             if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
             CurrentView = new ConnectedDisksViewModel(OpenUserControl);
+            AboutView = new AboutViewModel(View.ViewDisks);
         }
-
         private void DisksTest(object obj)
         {
             if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
             CurrentView = new DiskSpeedTestViewModel();
+            AboutView = new AboutViewModel(View.Benchmark);
         }
 
         private void OpenUserControl(object obj, object param, object navigation)
@@ -64,6 +100,7 @@ namespace DiskBenchmark.ViewModels
             {
                 case "DiskDetails":
                     CurrentView = new DiskDetailsViewModel((Disk)param,(Action<object, object, object>)navigation);
+                    AboutView = new AboutViewModel(View.Smart);
                     break;
                 case "DisksList":
                     CurrentView = new ConnectedDisksViewModel(OpenUserControl);
@@ -71,37 +108,13 @@ namespace DiskBenchmark.ViewModels
             }
         }
 
-      
-
-
-
-        #region Commands
-
-        #region CloseApp
-        //public ICommand CloseAppCommand { get; }
-
-
-        //private void OnCloseAppCommandExecuted(object p)
-        //{
-        //    Application.Current.Shutdown();
-        //}
-        //private bool CanCloseAppCommandExecute(object p) => true;
-
-
-        #endregion
-
-        #region GetDisks
-
-        public ICommand GetDisks { get; }
-        private void OnGetDisksCommandExecuted(object p)
-        {
-
-        }
-        private bool CanGetDisksCommandExecute(object p) => true;
         #endregion
 
 
-        #endregion
+
+
+        
+
         public MainWIndowViewModel()
         {          
             #region Commands
@@ -111,8 +124,11 @@ namespace DiskBenchmark.ViewModels
             DisksTestCommand = new LambdaCommand(DisksTest);
             #endregion
 
-            
-            CurrentView = new HomeViewModel();
+            SystemInfoService = new SystemInfoService();
+            Task.Run(() => { SystemInfo = SystemInfoService.GetOperatingSystemInfo(); }).Wait();
+
+            CurrentView = new HomeViewModel(SystemInfo);
+            AboutView = new AboutViewModel(View.Home);
         }
     }
 }

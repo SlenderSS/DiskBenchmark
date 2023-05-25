@@ -14,17 +14,16 @@ namespace DiskBenchmark.ViewModels
 
         public SystemInfo SystemInfo { get => _systemInfo; set { Set(ref _systemInfo, value); OnPropertyChanged(); } }
 
-        private SystemInfoService SystemInfoService;
+        
 
         public HomeViewModel() : this(null)
         {
 
         }
-        public HomeViewModel(SystemInfoService systemInfo)
+        public HomeViewModel(SystemInfo systemInfo)
         {
-            SystemInfoService = new SystemInfoService();
+            SystemInfo = systemInfo;
             
-            Task.Run(() => { SystemInfo = SystemInfoService.GetOperatingSystemInfo(); });
         }
     }
 }

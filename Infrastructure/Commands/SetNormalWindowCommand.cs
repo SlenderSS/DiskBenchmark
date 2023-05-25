@@ -18,6 +18,7 @@ namespace DiskBenchmark.Infrastructure.Commands
 
         public override void Execute(object parameter)
         {
+            Application.Current.MainWindow.Show();
             Application.Current.MainWindow.WindowState = WindowState.Normal;
         }
     }
