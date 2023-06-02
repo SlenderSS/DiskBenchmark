@@ -10,37 +10,47 @@
              d:DesignHeight="450" d:DesignWidth="400" MinWidth="0" MaxWidth="400">
     <Grid>
         <Border Margin="20" Style="{StaticResource BorderStyle2}" CornerRadius="20 0 0 20">
-            <StackPanel Margin="20">
-                
-                <TextBlock Text="DiskBenchmark has developed by Olkeksandr Olkhovyk from KI-34" 
-                           TextWrapping="Wrap" 
-                           Margin="20" 
-                           Style="{StaticResource Text_Style5}" FontSize="18"/>
-                
-                <TextBlock  TextWrapping="Wrap" >
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource Text_Style5}">
-                            
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ViewCount}" Value="0">
-                                    <Setter Property="Text" Value="Text 0"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ViewCount}" Value="1">
-                                    <Setter Property="Text" Value="Text 1"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ViewCount}" Value="2">
-                                    <Setter Property="Text" Value="Text 2"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ViewCount}" Value="3">
-                                    <Setter Property="Text" Value="Text 3"/>
-                                </DataTrigger>
-                                
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+            <Grid>
 
-            </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="100"/>
+                    <RowDefinition Height="230"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+
+                    <TextBlock Text="{DynamicResource DevBy}" 
+                            TextWrapping="Wrap" 
+                            Margin="20" 
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource Text_Style5}" FontSize="18"/>
+
+                    <TextBlock Grid.Row="1" Margin="30 20" VerticalAlignment="Top"  TextWrapping="Wrap" >
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource Text_Style4}">
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ViewCount}" Value="0">
+                                        <Setter Property="Text" Value="{DynamicResource AboutHome}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ViewCount}" Value="1">
+                                        <Setter Property="Text" Value="{DynamicResource AboutViewDisks}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ViewCount}" Value="2">
+                                        <Setter Property="Text" Value="{DynamicResource AboutBenchmark}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ViewCount}" Value="3">
+                                        <Setter Property="Text" Value="{DynamicResource AboutDiskDetails}"/>
+                                    </DataTrigger>
+
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Grid.Row="2" Text="{DynamicResource PS}" Margin="30 0 30 30" Style="{StaticResource Text_Style4}" />
+                
+            </Grid>
+           
         </Border>
     </Grid>
 </UserControl>

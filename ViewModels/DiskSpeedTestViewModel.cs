@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using DiskBenchmark.Infrastructure.Commands;
 using DiskBenchmark.Models;
 using DiskBenchmark.Services;
@@ -14,7 +11,6 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using StorageSpeedMeter;
-using StorageSpeedMeter.Helpers;
 using StorageSpeedMeter.Tests;
 
 namespace DiskBenchmark.ViewModels
@@ -204,7 +200,7 @@ namespace DiskBenchmark.ViewModels
             });
 
             var color = OxyColor.FromRgb(138, 197, 206);
-            MyModel = new PlotModel { Title = "Write/Read speed benchmark test", TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
+            MyModel = new PlotModel { /*Title = "Write/Read speed benchmark test",*/ TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
             MyModel.PlotAreaBorderColor = color;
 
             var speedAxis = new LinearAxis()

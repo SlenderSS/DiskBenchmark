@@ -1,11 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiskBenchmark.Models
+﻿namespace DiskBenchmark.Models
 {
-    internal class SmartAttribute
+    internal class SmartAttribute : ViewModels.Base.ViewModel
     {
         public int Register { get; set; }
         public string Name { get; set; }

@@ -1,15 +1,10 @@
 ﻿using DiskBenchmark.Infrastructure.Commands;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using DiskBenchmark.ViewModels.Base;
-using System.Collections.ObjectModel;
 using DiskBenchmark.Models;
-using System.Management;
 using DiskBenchmark.Services;
 
 namespace DiskBenchmark.ViewModels
@@ -57,11 +52,6 @@ namespace DiskBenchmark.ViewModels
         public ICommand DisksTestCommand { get; set; }
         public ICommand AboutCommand { get; set; }
         
-
-
-
-       
-
         private void Home(object obj)
         {
             if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
@@ -108,15 +98,11 @@ namespace DiskBenchmark.ViewModels
             }
         }
 
-        #endregion
-
-
-
-
-        
+        #endregion 
 
         public MainWIndowViewModel()
         {          
+            
             #region Commands
            
             HomeCommand = new LambdaCommand(Home);

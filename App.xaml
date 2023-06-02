@@ -21,7 +21,15 @@
                 <ResourceDictionary Source="Resources/Styles/DataGridStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/CheckBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/DataTemplates/DataTemplate.xaml" />
+                <ResourceDictionary Source="Resources/Langs/en-US.xaml" />
 
+
+
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

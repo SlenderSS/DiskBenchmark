@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiskBenchmark"
+        xmlns:img="clr-namespace:DiskBenchmark"
         xmlns:view="clr-namespace:DiskBenchmark.Views"
         xmlns:cmd="clr-namespace:DiskBenchmark.Infrastructure.Commands"
         xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
@@ -25,6 +26,7 @@
     <Window.Resources>
         <cmd:CloseAppCommand x:Key="CloseAppCommand"/>
         <cmd:MinimizeWindowCommand x:Key="MinimizeWindowCommand"/>
+        <cmd:SetLanguageCommand x:Key="SetLanguageCommand" />
         <convert:BytesToGigabytes x:Key="BytesConverter"/>
         <convert:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         
@@ -76,11 +78,35 @@
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="700*"/>
-                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{Binding Title}" Style="{StaticResource Text_Style}" FontSize="24"/>
-
+                <ComboBox  x:Name="Localize" Grid.Column="1" Margin="0 0 0 10" 
+                          Width="50" FontSize="20"
+                          Foreground="AliceBlue" 
+                          SelectedIndex="1"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                          BorderBrush="Gray"  HorizontalAlignment="Left"  >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction CommandParameter="{Binding ElementName=Localize, Path=SelectedItem}" Command="{StaticResource SetLanguageCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    
+                    <ComboBoxItem  Name="ua" >
+                        <!--<ComboBoxItem.CommandBindings>
+                            <CommandBinding Command="{StaticResource SetLanguageCommand}"/>
+                        </ComboBoxItem.CommandBindings>-->
+                        <Image Source="/Resources/Images/ua.png" Height="20" Stretch="Fill"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem  Name="en">
+                        <!--<ComboBoxItem.CommandBindings>
+                            <CommandBinding Command="{StaticResource SetLanguageCommand}"/>
+                        </ComboBoxItem.CommandBindings>-->
+                        <Image Source="/Resources/Images/en.png" Height="20" Stretch="Fill"/>
+                    </ComboBoxItem>
+                </ComboBox>
                 <ToggleButton x:Name="AboutTB"  Grid.Column="1"  Style="{StaticResource AboutAppButtonStyle}" HorizontalAlignment="Right" Margin="0 0 20 0"
                              ToolTip="Help">
                     <ToggleButton.Triggers>
@@ -136,7 +162,7 @@
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Home" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
-                                <TextBlock Text="Home" Style="{StaticResource Text_Style}" />
+                                <TextBlock Text="{DynamicResource HomeBtn}" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
@@ -147,7 +173,7 @@
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Inbox" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
-                                <TextBlock Text="View disks" Style="{StaticResource Text_Style}" />
+                                <TextBlock Text="{DynamicResource ViewDisksBtn}" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 
@@ -158,7 +184,7 @@
 
                             <Grid>
                                 <fa:ImageAwesome Icon="Connectdevelop" Style="{StaticResource Image_Style}" Foreground="WhiteSmoke"/>
-                                <TextBlock Text="Benchmark" Style="{StaticResource Text_Style}" />
+                                <TextBlock Text="{DynamicResource BenchmarkBtn}" Style="{StaticResource Text_Style}" />
 
                             </Grid>
 

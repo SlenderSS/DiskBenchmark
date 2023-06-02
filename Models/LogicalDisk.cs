@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiskBenchmark.Models
+﻿namespace DiskBenchmark.Models
 {
     internal class LogicalDisk : ViewModels.Base.ViewModel
     {

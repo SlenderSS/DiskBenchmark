@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiskBenchmark.Models
+﻿namespace DiskBenchmark.Models
 {
-    class SmartDisk
+    class SmartDisk : ViewModels.Base.ViewModel
     {
         
         public string PnpDeviceID { get; set; }

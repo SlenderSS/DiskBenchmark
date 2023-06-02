@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System
+    .Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DiskBenchmark.Models
 {
-    class SystemInfo
+    class SystemInfo : ViewModels.Base.ViewModel
     {
         public string SystemName { get; set; }
         public string  OSArchitecture { get; set; }

@@ -1,4 +1,66 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="GeneralInfo">Загальна інформація:</system:String>
+    <system:String x:Key="AboutPC">Операційна система:</system:String>
+    <system:String x:Key="OS">Архітектура:</system:String>
+    <system:String x:Key="SysMan">Виробник:</system:String>
+    <system:String x:Key="Model">Модель:</system:String>
+    <system:String x:Key="CPU">Процесор:</system:String>
+    <system:String x:Key="GPU">Графічний процесор:</system:String>
+    <system:String x:Key="BIOS">Біос:</system:String>
+
+
+    <system:String x:Key="HomeBtn">Дім</system:String>
+    <system:String x:Key="ViewDisksBtn">Диски</system:String>
+    <system:String x:Key="BenchmarkBtn">Бенчмарк</system:String>
+
+    <system:String x:Key="ModelDisk">Модель:</system:String>
+    <system:String x:Key="Serial">Номер:</system:String>
+    <system:String x:Key="Type">Тип:</system:String>
+    <system:String x:Key="Infrastructure">Інфраструктура:</system:String>
+    <system:String x:Key="Volume">Об'єм:</system:String>
+    <system:String x:Key="Patritions">Розділи:</system:String>
+    <system:String x:Key="Signature">Підпис:</system:String>
+    <system:String x:Key="FirmRev">Перегляд прошивки:</system:String>
+    <system:String x:Key="Sectors">Сектори:</system:String>
+    <system:String x:Key="IsSupport">S.M.A.R.T Підтримка:</system:String>
+    <system:String x:Key="SMARTInfo">S.M.A.R.T Інформація:</system:String>
+
     
+    <system:String x:Key="StartBench">Почати тестування</system:String>
+
+    <system:String x:Key="SeqWrite">Послідовний запис:</system:String>
+    <system:String x:Key="SeqRead">Послідовне читання:</system:String>
+    <system:String x:Key="RandWrite">Радномний запис:</system:String>
+    <system:String x:Key="RandRead">Радномне читання:</system:String>
+    <system:String x:Key="MemCopy">Копіювання:</system:String>
+
+
+    <system:String x:Key="DevBy">DiskBenchmark розроблений Олександром Ольховиком з групи KI-34</system:String>
+
+    <system:String x:Key="AboutHome">
+        На цій сторінці відображається 
+        інформація про ваш комп'ютер.
+    </system:String>
+
+
+    <system:String x:Key="AboutViewDisks">
+        Тут користувач може переглянути всі підключені фізичні диски, SSD, NVME, USB флеш-накопичувачі.
+        Двічі клацнувши на одному з дисків, можна отримати детальну інформацію про вибраний диск.
+    </system:String>
+
+    <system:String x:Key="AboutDiskDetails">
+        Ця сторінка показує детальну інформацію про диск і SMART-інформацію (якщо підтримується).
+    </system:String>
+
+    <system:String x:Key="AboutBenchmark">
+        Ця сторінка призначена для тестування швидкості читання та запису вашого накопичувача.
+        Щоб почати тестування, виберіть у верхньому списку всі доступні логічні диски, після чого натисніть кнопку "Почати тестування". 
+        Дочекайтесь завершення тестування і після чого можете протестувати інші накопичувачі(якщо вони є)
+    </system:String>
+
+    <system:String x:Key="PS">*цей текст змінюється залежно від сторінки</system:String>
+
 </ResourceDictionary>

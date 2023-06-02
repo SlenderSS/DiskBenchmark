@@ -1,0 +1,1384 @@
+using System.Windows;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    class CloseAppCommand : Command
+    {
+        public override bool CanExecute(object parameter) => true;
+
+        public override void Execute(object parameter)
+        {
+            Application.Current.Shutdown();
+        }
+    }
+}
+
+
+using System;
+using System.Windows.Input;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    internal abstract class Command : ICommand
+    {
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        public abstract bool CanExecute(object parameter);
+
+        public abstract void Execute(object parameter);
+       
+    }
+}
+
+
+using System;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    internal class LambdaCommand : Command
+    {
+        private Action<object> _Execute;
+        private Func<object, bool> _CanExecute;
+
+        public LambdaCommand(Action<object> Execute, Func<object,bool> CanExecute = null)
+        {
+            _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
+            _CanExecute = CanExecute;
+        }
+        public override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
+
+        public override void Execute(object parameter) => _Execute(parameter);
+    }
+}
+
+using System.Windows;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    class MinimizeWindowCommand : Command
+    {
+        public override bool CanExecute(object parameter) => true;
+
+        public override void Execute(object parameter)
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            Application.Current.MainWindow.Hide();
+        }
+    }
+}
+
+using System.Windows;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    internal class MoveWindowCommand : Command
+    {
+        public override bool CanExecute(object parameter)
+         => true;
+
+        public override void Execute(object parameter)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+    }
+}
+using System;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    internal class SetLanguageCommand : Command
+    {
+        private static string CurrentLanguage = "en";
+        public override bool CanExecute(object parameter)
+        {
+            if (!(parameter is ComboBoxItem comboBoxItem)) return false;
+            if (comboBoxItem.Name.ToString() != CurrentLanguage)
+            {
+                CurrentLanguage = comboBoxItem.Name.ToString();
+                return true;
+            }
+            return false;
+        }
+
+        public override void Execute(object parameter)
+        {
+            if (!(parameter is ComboBoxItem comboBoxItem)) return;
+            ResourceDictionary dictionary = new ResourceDictionary();
+            switch (comboBoxItem.Name.ToString())
+            {
+                case "ua":
+                    dictionary.Source = new Uri(@"..\Resources\Langs\ua.xaml",UriKind.Relative);                   
+                    break;
+                case "en":
+                    dictionary.Source = new Uri(@"..\Resources\Langs\en-US.xaml", UriKind.Relative);                   
+                    break;
+                default:
+                    dictionary.Source = new Uri(@"..\Resources\Langs\en-US.xaml", UriKind.Relative);
+                    break;
+            }
+            Application.Current.Resources.MergedDictionaries.Add(dictionary);
+        }
+    }
+}
+
+using System.Windows;
+
+namespace DiskBenchmark.Infrastructure.Commands
+{
+    class SetNormalWindowCommand : Command
+    {
+        public override bool CanExecute(object parameter)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+                return true;
+            return false;
+        }
+
+        public override void Execute(object parameter)
+        {
+            Application.Current.MainWindow.Show();
+            Application.Current.MainWindow.WindowState = WindowState.Normal;
+        }
+    }
+}
+using DiskBenchmark.Models;
+using System;
+
+namespace DiskBenchmark.Infrastructure.Common
+{
+    internal sealed class Helper
+    {
+        public static int ConvertStringHexToInt(string hex0x0)
+        {
+            try
+            {
+                int value = (int)new System.ComponentModel.Int32Converter().ConvertFromString(hex0x0);
+                return value;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error converting hex value {hex0x0} to integer.", ex);
+            }
+        }
+        public static SmartAttributeCollection GetSmartRegisters(string textRegisters)
+        {
+            var collection = new SmartAttributeCollection();
+
+            try
+            {
+                var splitOnCRLF = textRegisters.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (var line in splitOnCRLF)
+                {
+                    var splitLineOnComma = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    string register = splitLineOnComma[0].Trim();
+                    string attributeName = splitLineOnComma[1].Trim();
+
+                    collection.Add(new SmartAttribute(Helper.ConvertStringHexToInt(register), attributeName));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GetSmartRegisters failed with error " + ex);
+            }
+
+            return collection;
+        }
+    }
+}
+using System;
+using System.Globalization;
+using System.Windows;
+
+namespace DiskBenchmark.Infrastructure.Converters
+{
+    internal class BooleanToVisibilityConverter : Converter
+    {
+        private static bool Visible = false;
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(Visible)
+                return Visibility.Visible;
+            if (value is bool boolValue)
+            {
+                if (boolValue) { Visible = true; return Visibility.Visible; } else return Visibility.Collapsed;
+            }
+
+            return Visibility.Visible; // Default visibility
+        }
+    }
+}
+using System;
+using System.Globalization;
+
+namespace DiskBenchmark.Infrastructure.Converters
+{
+    internal class BytesToGigabytes : Converter
+    {
+        
+        private uint _gigabyte = 1024 * 1024 * 1024; //1 073 741 824
+        private uint _megabyte = 1024 * 1024; 
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(value is ulong bytes)) return null;
+
+            
+            if(bytes > _gigabyte)
+                return bytes / _gigabyte + " GB";
+            else 
+                return bytes / _megabyte + " MB";
+            //if(bytes / _gigabyte < 0) 
+        }
+        
+    }
+}
+using System;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Markup;
+
+namespace DiskBenchmark.Infrastructure.Converters
+{
+    internal abstract class Converter : MarkupExtension, IValueConverter
+    {
+
+        public override object ProvideValue(IServiceProvider serviceProvider) => this;
+        public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
+
+        public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+                 => throw new NotSupportedException("Convert back is not supported!");
+    }
+}
+using System.Collections.ObjectModel;
+
+namespace DiskBenchmark.Models
+{
+    internal class Disk : ViewModels.Base.ViewModel
+    {
+        public string Caption { get; set; }
+        public string DeviceID { get; set; }
+        public string SerialNumber { get; set; }
+        public ulong Size { get; set; }
+        public ulong TotalUsedSpace { get; set; }
+
+        public string PnpDeviceID { get; set; }
+        public ObservableCollection<LogicalDisk> LogicalDisks { get; set; }
+        public Disk()
+        {
+
+            LogicalDisks = new ObservableCollection<LogicalDisk>();
+        }
+    }
+}
+using OxyPlot.Series;
+
+namespace DiskBenchmark.Models
+{
+    internal class DiskTestInformation : ViewModels.Base.ViewModel
+    {
+        private string _status;
+        public string Status { get => _status; set { Set(ref _status, value); OnPropertyChanged(); } }
+
+        public LineSeries Series { get; set; }
+
+        public void Clear()
+        {
+            Series.Points.Clear();       
+            Status = default;
+            
+        }
+
+        public DiskTestInformation()
+        {
+
+
+        }
+    }
+}
+namespace DiskBenchmark.Models
+{
+    internal class LogicalDisk : ViewModels.Base.ViewModel
+    {
+      
+        public string Caption { get; set; }
+        public string DeviceID { get; set;}
+        public string FileSystem { get; set; }
+
+        public ulong UsedSpace { get; set; }
+        public ulong Size { get; set; }
+    }
+
+}
+namespace DiskBenchmark.Models
+{
+    internal class SmartAttribute
+    {
+        public int Register { get; set; }
+        public string Name { get; set; }
+
+        public int Current { get; set; }
+        public int Worst { get; set; }
+        public int Threshold { get; set; }
+        public int Data { get; set; }
+        public bool IsOK { get; set; }
+
+        public bool HasData
+        {
+            get
+            {
+                if (Current == 0 && Worst == 0 && Threshold == 0 && Data == 0)
+                    return false;
+                return true;
+            }
+        }
+
+        public SmartAttribute(int register, string attributeName)
+        {
+            this.Register = register;
+            this.Name = attributeName;
+        }
+    }
+}
+using System.Collections.Generic;
+
+namespace DiskBenchmark.Models
+{
+    internal class SmartAttributeCollection : List<SmartAttribute>
+    {
+        public SmartAttributeCollection()
+        {
+
+        }
+        public SmartAttributeCollection(IEnumerable<SmartAttribute> smartAttributes) : base(smartAttributes)
+        {
+            
+        }
+
+        public SmartAttribute GetAttribute(int registerID)
+        {
+            foreach (var item in this)
+            {
+                if (item.Register == registerID)
+                    return item;
+            }
+
+            return null;
+        }
+    }
+}
+namespace DiskBenchmark.Models
+{
+    internal class Resource
+    {
+        public static string SmartAttributes =
+             @"0x00,Invalid
+              0x01,Raw read error rate
+              0x02,Throughput performance
+              0x03,Spinup time
+              0x04,Start/Stop count
+              0x05,Reallocated sector count
+              0x06,Read channel margin
+              0x07,Seek error rate
+              0x08,Seek timer performance
+              0x09,Power-on hours count
+              0x0A,Spinup retry count
+              0x0B,Calibration retry count
+              0x0C,Power cycle count
+              0x0D,Soft read error rate
+              0xAA,Available reserved space
+              0xAB,Program fail count
+              0xAC,Erase fail block count
+              0xAD,Wear level count
+              0xAE,Unexpected power loss count
+              0xB7,SATA downshift count
+              0xB8,End-to-End error
+              0xBB,Uncorrectable error count
+              0xBE,Airflow Temperature
+              0xBF,G-sense error rate
+              0xC0,Unsafe shutdown count
+              0xC1,Load/Unload cycle count
+              0xC2,Temperature
+              0xC3,Hardware ECC recovered
+              0xC4,Reallocation count
+              0xC5,Current pending sector count
+              0xC6,Offline scan uncorrectable count
+              0xC7,Interface CRC error rate
+              0xC8,Write error rate
+              0xC9,Soft read error rate
+              0xCA,Data Address Mark errors
+              0xCB,Run out cancel
+              0xCC,Soft ECC correction
+              0xCD,Thermal asperity rate (TAR)
+              0xCE,Flying height
+              0xCF,Spin high current
+              0xD0,Spin buzz
+              0xD1,Offline seek performance
+              0xDC,Disk shift
+              0xDD,G-sense error rate
+              0xDE,Loaded hours
+              0xDF,Load/unload retry count
+              0xE0,Load friction
+              0xE1,Host writes
+              0xE2,Timer workload media wear
+              0xE3,Timer workload read/write ratio
+              0xE4,Timer workload timer
+              0xE6,GMR head amplitude
+              0xE7,Temperature
+              0xE8,Available reserved space
+              0xE9,Media wearout indicator
+              0xF0,Head flying hours
+              0xF1,Life time writes
+              0xF2,Life time reads
+              0xF9,Life time writes (NAND)
+              0xFA,Read error retry rate"; 
+    }
+}
+namespace DiskBenchmark.Models
+{
+    class SmartDisk
+    {
+        
+        public string PnpDeviceID { get; set; }
+        public bool IsOK { get; set; }
+
+        public string Type { get; set; }
+        public string Model { get; set; }
+        public string Serial { get; set; }
+        public string InfrastructureType { get; set; }
+        public ulong Capasity { get; set; }
+        public ushort Partitions { get; set; }
+        public string Signature { get; set; }
+        public string FirmwareRevision { get; set; }
+        public uint Sectors { get; set; }
+
+
+
+
+
+        public SmartAttributeCollection SmartAttributes { get; set; }
+        public bool IsSupported { get; set; }
+
+        public SmartDisk()
+        {
+            SmartAttributes = new SmartAttributeCollection();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System
+    .Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DiskBenchmark.Models
+{
+    class SystemInfo
+    {
+        public string SystemName { get; set; }
+        public string  OSArchitecture { get; set; }
+        public string OSManufacturer { get; set; }
+        public string Model { get; set; }
+        public string CPUName { get; set; }
+        public string BIOSVersion { get; set; }
+        public string GPUName { get; set; }
+    }
+}
+namespace DiskBenchmark.Models
+{
+    enum View
+    {
+        Home,
+        ViewDisks,
+        Benchmark, 
+        Smart
+    }
+}
+using DiskBenchmark.Infrastructure.Common;
+using DiskBenchmark.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Management;
+using System.Windows;
+
+namespace DiskBenchmark.Services
+{
+    internal class DisksService
+    {
+        public static readonly long FILE_SIZE = 1024 * 1024 * 1024;
+
+        public SmartDisk GetSmartInformation(Disk disk)
+        {
+            SmartDisk smartDisk = new SmartDisk();
+            try
+            {
+                ManagementObjectSearcher mangObjsearc = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive WHERE Caption='" + disk.Caption + "'");
+
+                foreach (ManagementObject manObj in mangObjsearc.Get())
+                {
+                    smartDisk.Type = manObj["MediaType"].ToString();
+                    smartDisk.Model = manObj["Model"].ToString();
+                    smartDisk.Serial = manObj["SerialNumber"].ToString();
+                    smartDisk.InfrastructureType = manObj["InterfaceType"].ToString();
+                    smartDisk.Capasity = ulong.Parse(manObj["Size"].ToString()); 
+                    smartDisk.Partitions = Convert.ToUInt16(manObj["Partitions"].ToString());
+                    smartDisk.Signature = manObj["Signature"] != null ? manObj["Signature"].ToString(): "None information" ;
+
+
+                    smartDisk.FirmwareRevision = manObj["FirmwareRevision"] != null ?  manObj["FirmwareRevision"].ToString() : "Missing info";         
+                    smartDisk.Sectors = Convert.ToUInt32(manObj["TotalSectors"].ToString());
+                }
+
+
+                #region Overall Smart Status
+
+                try
+                {
+                    ManagementScope scope = new ManagementScope("\\\\.\\ROOT\\WMI");
+                    ObjectQuery query = new ObjectQuery(@"SELECT * FROM MSStorageDriver_FailurePredictStatus Where InstanceName like ""%"
+                                                        + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                    ManagementObjectCollection queryCollection = searcher.Get();
+                    foreach (ManagementObject m in queryCollection)
+                    {
+                        smartDisk.IsOK = (bool)m.Properties["PredictFailure"].Value == false;
+                    }
+
+                    #endregion
+
+                    #region Smart Registers
+                    
+                    smartDisk.SmartAttributes.AddRange(Helper.GetSmartRegisters(Resource.SmartAttributes));
+
+                    searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictData Where InstanceName like ""%"
+                                                         + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+
+                    foreach (ManagementObject data in searcher.Get())
+                    {
+                        byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
+                        for (int i = 0; i < 42; ++i)
+                        {
+                            try
+                            {
+                                int id = bytes[i * 12 + 2];
+
+                                int flags = bytes[i * 12 + 4]; // least significant status byte, +3 most significant byte, but not used so ignored.
+                                                               //bool advisory = (flags & 0x1) == 0x0;
+                                bool failureImminent = (flags & 0x1) == 0x1;
+                                //bool onlineDataCollection = (flags & 0x2) == 0x2;
+
+                                int value = bytes[i * 12 + 5];
+                                int worst = bytes[i * 12 + 6];
+                                int vendordata = BitConverter.ToInt32(bytes, i * 12 + 7);
+                                if (id == 0) continue;
+
+                                var attr = smartDisk.SmartAttributes.GetAttribute(id);
+                                if (attr != null)
+                                {
+                                    attr.Current = value;
+                                    attr.Worst = worst;
+                                    attr.Data = vendordata;
+                                    attr.IsOK = failureImminent == false;
+                                }
+                            }
+                            catch 
+                            {
+                            // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
+                               //MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+
+                    searcher.Query = new ObjectQuery(@"Select * from MSStorageDriver_FailurePredictThresholds Where InstanceName like ""%"
+                                                         + disk.PnpDeviceID.Replace("\\", "\\\\") + @"%""");
+                    foreach (ManagementObject data in searcher.Get())
+                    {
+                        byte[] bytes = (byte[])data.Properties["VendorSpecific"].Value;
+                        for (int i = 0; i < 42; ++i)
+                        {
+                            try
+                            {
+                                int id = bytes[i * 12 + 2];
+                                int thresh = bytes[i * 12 + 3];
+                                if (id == 0) continue;
+
+                                var attr = smartDisk.SmartAttributes.GetAttribute(id);
+                                if (attr != null)
+                                {
+                                    attr.Threshold = thresh;                                
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+                catch 
+                {
+                    //MessageBox.Show(ex.Message);
+                    
+                    smartDisk.IsOK = false;
+                }
+
+                smartDisk.IsSupported = smartDisk.SmartAttributes.Where(sa => sa.HasData).Any();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show( ex.Message);
+            }
+            smartDisk.SmartAttributes = new SmartAttributeCollection(smartDisk.SmartAttributes.Where(x => x.Current != 0 && x.Worst != 0).ToList());
+            return smartDisk;
+        }
+
+        public ObservableCollection<Disk> GetDisks()
+        {
+            var disks = new ObservableCollection<Disk>();
+
+            try
+            {
+                ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2");
+                ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_DiskDrive");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                foreach (ManagementObject disk in searcher.Get())
+                {
+                    Disk newDisk = new Disk();
+                    newDisk.Caption = disk["Model"] != null ? disk["Model"].ToString() : "None";
+                    newDisk.DeviceID = disk["DeviceID"] != null ? disk["DeviceID"].ToString() : "None";
+                    newDisk.SerialNumber = disk["SerialNumber"] != null ? disk["SerialNumber"].ToString() : "None";
+                    newDisk.Size = disk["Size"] != null ? ulong.Parse(disk["Size"].ToString()) : 0;
+                    newDisk.PnpDeviceID = disk["PNPDeviceID"] != null ? disk["PNPDeviceID"].ToString() : "None";
+
+                    ObjectQuery partitionQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskDrive.DeviceID='{newDisk.DeviceID}'}} WHERE AssocClass = Win32_DiskDriveToDiskPartition");
+                    ManagementObjectSearcher partitionSearcher = new ManagementObjectSearcher(scope, partitionQuery);
+
+                    foreach (ManagementObject partition in partitionSearcher.Get())
+                    {
+
+                        ObjectQuery logicalDiskQuery = new ObjectQuery($"ASSOCIATORS OF {{Win32_DiskPartition.DeviceID='{partition["DeviceID"]}'}} WHERE AssocClass = Win32_LogicalDiskToPartition");
+                        ManagementObjectSearcher logicalDiskSearcher = new ManagementObjectSearcher(scope, logicalDiskQuery);
+
+                        foreach (ManagementObject logicalDisk in logicalDiskSearcher.Get())
+                        {
+                            LogicalDisk newLogicalDisk = new LogicalDisk();
+                            newLogicalDisk.Caption = logicalDisk["Caption"] != null ? logicalDisk["Caption"].ToString() : "None";
+                            newLogicalDisk.DeviceID = logicalDisk["DeviceID"] != null ? logicalDisk["DeviceID"].ToString() : "None";
+                            newLogicalDisk.FileSystem = logicalDisk["FileSystem"] != null ? logicalDisk["FileSystem"].ToString() : "None";
+                            newLogicalDisk.Size = logicalDisk["Size"] != null ? ulong.Parse(logicalDisk["Size"].ToString()) : 0;
+                            newLogicalDisk.UsedSpace = newLogicalDisk.Size - ulong.Parse(logicalDisk["FreeSpace"] != null ? logicalDisk["FreeSpace"].ToString() : "0");
+                            newDisk.TotalUsedSpace += newLogicalDisk.UsedSpace;
+                            newDisk.LogicalDisks.Add(newLogicalDisk);
+
+                        }
+                    }
+                    disks.Add(newDisk);
+                }
+            }
+            catch //(Exception ex)
+            {
+
+                //MessageBox.Show(ex.Message);
+            }
+           
+            return disks;
+            
+        }
+    }
+}
+using DiskBenchmark.Models;
+using Microsoft.Win32;
+using System.Management;
+
+namespace DiskBenchmark.Services
+{
+    class SystemInfoService
+    {
+        public SystemInfo GetOperatingSystemInfo()
+        {
+            var sysInfo = new SystemInfo();
+            ManagementObjectSearcher mos = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
+            foreach (ManagementObject obj in mos.Get())
+            {
+                if (obj["Caption"] != null)
+                {
+                    sysInfo.SystemName =  (obj["Caption"] != null ? obj["Caption"].ToString() : "None");   //Display operating system caption
+                }
+                if (obj["OSArchitecture"] != null)
+                {
+                     sysInfo.OSArchitecture =   (obj["OSArchitecture"] != null ? obj["OSArchitecture"].ToString() : "None");   //Display operating system architecture.
+                }
+                
+                sysInfo.CPUName =  GetProcessorInfo();
+            }
+
+
+            SelectQuery query = new SelectQuery(@"Select * from Win32_ComputerSystem");
+
+           
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            {
+               
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    sysInfo.OSManufacturer =  (obj["Manufacturer"] != null ? obj["Manufacturer"].ToString() : "None");
+                    sysInfo.Model =  (obj["Model"] != null ? obj["Model"].ToString() : "None");
+                }
+            }
+            ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+           
+            foreach (ManagementObject obj in searcher1.Get())
+            {
+                if (((string[])obj["BIOSVersion"]).Length > 1)
+                    sysInfo.BIOSVersion = ((string[])obj["BIOSVersion"])[0] + " - " + ((string[])obj["BIOSVersion"])[1];
+                else
+                    sysInfo.BIOSVersion =  ((string[])obj["BIOSVersion"])[0];
+            }
+            using (var searcher = new ManagementObjectSearcher("select * from Win32_VideoController"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    sysInfo.GPUName = obj["Name"].ToString();
+                   
+                }
+            }
+
+            return sysInfo;
+        }
+
+        private string GetProcessorInfo()
+        {
+            
+            RegistryKey processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.
+
+            if (processor_name != null)
+            {
+                if (processor_name.GetValue("ProcessorNameString") != null)
+                {
+                    return processor_name.GetValue("ProcessorNameString").ToString();   //Display processor ingo.
+                }
+            }
+            return "No information...";
+            
+        }
+    }
+
+
+
+}
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace DiskBenchmark.ViewModels.Base
+{
+    class ViewModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        public virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
+
+        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        {
+            if (Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(PropertyName);
+            return true;
+        }
+    }
+}
+using DiskBenchmark.Models;
+
+namespace DiskBenchmark.ViewModels
+{
+    class AboutViewModel : Base.ViewModel
+    {
+
+        private int _viewCount;
+
+        public int ViewCount
+        {
+            get { return _viewCount; }
+            set { _viewCount = value; OnPropertyChanged(); }
+        }
+
+        public AboutViewModel(View view)
+        {
+            ViewCount = (int)view;
+        }
+    }
+}
+using DiskBenchmark.Infrastructure.Commands;
+using DiskBenchmark.Models;
+using DiskBenchmark.Services;
+using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+
+namespace DiskBenchmark.ViewModels
+{
+    internal class ConnectedDisksViewModel : Base.ViewModel
+    {
+        private readonly Action<object, object, object> navigate;
+        
+
+        private ObservableCollection<Disk> _disks;
+        public ObservableCollection<Disk> Disks 
+        {
+            get => _disks; 
+            set 
+            {
+                _disks = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Disk SelectedDisk { get; set; }
+
+       
+        public ICommand DiskDetailsCommand { get; set; }
+
+        private void DiskDetails(object obj) =>navigate.Invoke("DiskDetails", SelectedDisk, navigate);
+
+        
+        public ConnectedDisksViewModel(Action<object, object, object> navigate)
+        {
+            #region Commands
+            DiskDetailsCommand = new LambdaCommand(DiskDetails);
+            #endregion
+
+           
+            this.navigate = navigate;
+            DisksService disksList = new DisksService();
+            Disks = new ObservableCollection<Disk>();
+            try
+            {
+                Task.Factory.StartNew( async() =>
+                {
+                    while (true)
+                    {
+
+                        //Disks = disksList.GetDisks();
+                        var temp = disksList.GetDisks();
+                        if (temp.Count != Disks.Count)
+                        {
+                            Disks = temp;
+                        }
+                        await Task.Delay(5000);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+
+            
+
+
+        }
+    }
+}
+using DiskBenchmark.Infrastructure.Commands;
+using DiskBenchmark.Models;
+using DiskBenchmark.Services;
+using System;
+using System.Windows.Input;
+
+namespace DiskBenchmark.ViewModels
+{
+    internal class DiskDetailsViewModel : Base.ViewModel
+    {
+        private Action<object, object, object> navigation;
+
+
+        public Disk Disk { get; set; }
+
+
+        private SmartDisk _smartDisk;
+        public SmartDisk SmartDisk { get => _smartDisk; set { _smartDisk = value; OnPropertyChanged(); } }
+
+
+
+        public ICommand BackCommand { get; set; }
+        private void Back(object obj) => navigation.Invoke("DisksList", null, null);
+
+
+
+
+        public DiskDetailsViewModel(Disk selectedDisk, Action<object, object, object> navigation)
+        {
+            this.navigation = navigation;
+
+            BackCommand = new LambdaCommand(Back);
+
+            this.Disk = selectedDisk;
+
+            SmartDisk = new DisksService().GetSmartInformation(Disk);
+
+        }
+
+       
+    }
+}
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using DiskBenchmark.Infrastructure.Commands;
+using DiskBenchmark.Models;
+using DiskBenchmark.Services;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using StorageSpeedMeter;
+using StorageSpeedMeter.Tests;
+
+namespace DiskBenchmark.ViewModels
+{
+    internal class DiskSpeedTestViewModel : Base.ViewModel
+    {
+        #region Drives
+        private DriveInfo[] _drives = new DriveInfo[0];
+        public DriveInfo[] Drives {
+            get => _drives;
+            set
+            {
+                Set(ref _drives, value);
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Selected drive
+        private DriveInfo _SelectedDrive;
+        public DriveInfo SelectedDrive
+        {
+            get => _SelectedDrive;
+            set
+            {
+                Set(ref _SelectedDrive, value);
+                OnPropertyChanged();
+            }
+        }
+        #endregion
+
+
+        #region Sequential Write
+        private DiskTestInformation _sequentialWrite;
+        public DiskTestInformation SequentialWrite { get => _sequentialWrite; set { Set(ref _sequentialWrite, value); OnPropertyChanged(); } }
+        #endregion
+        #region SequentialRead
+        private DiskTestInformation _sequentialRead;
+        public DiskTestInformation SequentialRead { get => _sequentialRead; set { Set(ref _sequentialRead, value); OnPropertyChanged(); } }
+        #endregion
+        #region RandomWrite
+        private DiskTestInformation _randomWrite;
+        public DiskTestInformation RandomWrite { get => _randomWrite; set { Set(ref _randomWrite, value); OnPropertyChanged(); } }
+        #endregion
+        #region RandomRead
+        private DiskTestInformation _randomRead;
+        public DiskTestInformation RandomRead { get => _randomRead; set { Set(ref _randomRead, value); OnPropertyChanged(); } }
+        #endregion
+        #region Memory Copy
+        private DiskTestInformation _memoryCopy;
+        public DiskTestInformation MemoryCopy { get => _memoryCopy; set { Set(ref _memoryCopy, value); OnPropertyChanged(); } }
+        #endregion
+
+        public PlotModel MyModel { get; private set; }
+        public ICommand DiskTeskCommand => new LambdaCommand(
+                  async (a) => {
+                      IsRun = true;
+                      var testSuite = new BigTest(SelectedDrive.RootDirectory.FullName, DisksService.FILE_SIZE, false);
+                      int testCounter = -1;
+                      await Task.Run(() =>
+                      {
+                          SequentialWrite.Clear();
+                          SequentialRead.Clear();
+                          RandomWrite.Clear();
+                          RandomRead.Clear();
+                          MemoryCopy.Clear();
+                          using (testSuite)
+                          {
+                              string currentTest = null;
+                             
+                              var breakTest = false;
+                              DiskTestInformation current = new DiskTestInformation();
+
+                              testSuite.StatusUpdate += (sender, e) =>
+                              {
+                                  if (breakTest) return;
+                                  if (e.Status == TestStatus.NotStarted) return;
+
+                                  if ((sender as Test).DisplayName != currentTest)
+                                  {
+                                      ++testCounter;
+                                      if (testCounter > 4)
+                                          return;
+                                      currentTest = (sender as Test).DisplayName;
+                                      switch (testCounter)
+                                      {
+                                          case 0:
+                                              current = SequentialWrite;
+                                              break;
+                                          case 1:
+                                              current = SequentialRead;
+                                              break;
+                                          case 2:
+                                              current = RandomWrite;
+                                              break;
+                                          case 3:
+                                              current = RandomRead;
+                                              break;
+                                          case 4:
+                                              current = MemoryCopy;
+                                              break;
+                                      }                                  
+                                   }
+
+                                  if (e.Status != TestStatus.Completed)
+                                  {
+
+                                      switch (e.Status)
+                                      {
+                                          case TestStatus.Started:
+                                              current.Status = "Started";
+                                              break;
+                                          case TestStatus.InitMemBuffer:
+                                              current.Status = "Initializing test data in RAM...";
+                                              break;
+                                          case TestStatus.PurgingMemCache:
+                                              current.Status = "Purging file cache in RAM...";
+                                              break;
+                                          case TestStatus.WarmigUp:
+                                              current.Status = "Warming up...";
+                                              break;
+                                          case TestStatus.Interrupted:
+                                              current.Status = "Test interrupted";
+                                              break;
+                                          case TestStatus.Running:                                     
+                                               current.Status = $"Running...";
+                                              var temp = new DataPoint(e.ProgressPercent ?? 0, e.RecentResult ?? 0);
+                                              current.Series.Points.Add(temp);
+                                              MyModel.InvalidatePlot(true);
+
+                                              break;
+                                      }
+                                      Console.ResetColor();
+                                  }
+                                  else if ((e.Status == TestStatus.Completed) && (e.Results != null))
+                                  {
+
+                                      current.Status = string.Format("Avg: {0:0.00} MB/s  Min÷Max: {1:0.00} MB/s ÷ {2:0.00} MB/s, Time: {3}m{4:00}s",
+                                          e.Results.AvgThroughput,
+                                          e.Results.Min,
+                                          e.Results.Max,
+                                          e.ElapsedMs / 1000 / 60,
+                                          e.ElapsedMs / 1000 % 60);
+
+                                  }
+                              };
+                              testSuite.Execute();
+
+                          }
+
+                          IsRun = false;
+                      });
+                  },
+                  (e) =>
+                  {
+                      if (SelectedDrive != null && !IsRun) 
+                      { 
+
+                          return true; 
+                      }
+                      else                       
+                          return false;
+                      
+                  }
+                  );
+        private bool IsRun = false;
+
+        public DiskSpeedTestViewModel()
+        {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        var updateDrives = DriveInfo.GetDrives().Where(x => x.IsReady && x.AvailableFreeSpace > DisksService.FILE_SIZE).ToArray();
+                        if (updateDrives.Length != Drives.Length || SelectedDrive == null)
+                            Drives = updateDrives;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    await Task.Delay(5000);
+                }
+            });
+
+            var color = OxyColor.FromRgb(138, 197, 206);
+            MyModel = new PlotModel { /*Title = "Write/Read speed benchmark test",*/ TextColor = color /*PlotAreaBorderColor = OxyColor.FromRgb(1, 108, 192)*/ };
+            MyModel.PlotAreaBorderColor = color;
+
+            var speedAxis = new LinearAxis()
+            {
+                Title = "Speed (MB/s)",
+                Position = AxisPosition.Left,
+                IsZoomEnabled = false,
+                TicklineColor = color,
+                MinimumMinorStep = 10,
+                AbsoluteMinimum = 0,
+                TextColor = color,
+                MajorGridlineStyle = LineStyle.Dot,
+                MinorGridlineStyle = LineStyle.Dot
+
+            };
+            var progressAxis = new LinearAxis()
+            {                
+                IsAxisVisible = true,
+                Position = AxisPosition.Bottom,
+                IsZoomEnabled = false,
+                TicklineColor = color,
+                Minimum = 0,
+                MinimumMajorStep = 1,
+                Maximum = 100,
+                TextColor = color,
+                MajorGridlineStyle = LineStyle.Dot,
+                MinorGridlineStyle = LineStyle.Dot
+
+            };
+
+            MyModel.Axes.Add(speedAxis);
+            MyModel.Axes.Add(progressAxis);
+
+
+            SequentialWrite = new DiskTestInformation
+            {
+                Series = new LineSeries
+                { 
+                    Title = "Sequential write",
+                    LineStyle = LineStyle.Solid,
+                    StrokeThickness = 2.0,
+                    Color = OxyColor.FromRgb(152, 113, 191)
+                }
+            };
+            SequentialRead = new DiskTestInformation
+            {
+                Series = new LineSeries
+                {
+                    Title = "Sequential read",
+                    LineStyle = LineStyle.Solid,
+                    StrokeThickness = 2.0,
+                    Color = OxyColor.FromRgb(191, 113, 149)
+                }
+            };
+            RandomWrite = new DiskTestInformation
+            {
+                Series = new LineSeries
+                {
+                    Title = "Random write",
+                    LineStyle = LineStyle.Solid,
+                    StrokeThickness = 2.0,
+                    Color = OxyColor.FromRgb(88, 138, 217)
+                }
+            };
+            RandomRead = new DiskTestInformation
+            {
+                Series = new LineSeries()
+                {
+                    Title = "Random read",
+                    LineStyle = LineStyle.Solid,
+                    StrokeThickness = 2.0,
+                    Color = OxyColor.FromRgb(101, 211, 187)
+                }
+            };
+            MemoryCopy = new DiskTestInformation
+            {
+                Series = new LineSeries()
+                {
+                    Title = "Memory copy",
+                    LineStyle = LineStyle.Solid,
+                    StrokeThickness = 2.0,
+                    Color = OxyColor.FromRgb(164, 185, 69)
+                }
+            };
+
+            MyModel.Series.Add(SequentialWrite.Series);
+            MyModel.Series.Add(SequentialRead.Series);
+            MyModel.Series.Add(RandomWrite.Series);
+            MyModel.Series.Add(RandomRead.Series);
+            
+            //this.MyModel.Series.Add(MemoryCopy.Series);
+
+
+            
+
+
+        }
+    }
+}
+using DiskBenchmark.Models;
+
+namespace DiskBenchmark.ViewModels
+{
+    internal class HomeViewModel : Base.ViewModel
+    {
+        private SystemInfo _systemInfo;
+
+        public SystemInfo SystemInfo { get => _systemInfo; set { Set(ref _systemInfo, value); OnPropertyChanged(); } }
+
+        
+
+        public HomeViewModel() : this(null)
+        {
+
+        }
+        public HomeViewModel(SystemInfo systemInfo)
+        {
+            SystemInfo = systemInfo;
+            
+        }
+    }
+}
+using DiskBenchmark.Infrastructure.Commands;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
+using DiskBenchmark.ViewModels.Base;
+using DiskBenchmark.Models;
+using DiskBenchmark.Services;
+
+namespace DiskBenchmark.ViewModels
+{
+    internal class MainWIndowViewModel: ViewModel
+    {
+        #region Title
+        private string _Title = "Disk Benchmark";
+        public string Title { get => _Title; set => Set(ref _Title, value); }
+
+        #endregion
+
+        #region Current view
+        private object _currentView;
+        public object CurrentView { get => _currentView; set 
+            {
+                _currentView = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Current view
+        private object _about;
+        public object AboutView
+        {
+            get => _about; set
+            {
+                _about = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
+        public SystemInfoService SystemInfoService { get; }
+        private SystemInfo _systemInfo;
+        public SystemInfo SystemInfo { get => _systemInfo; set { Set(ref _systemInfo, value); OnPropertyChanged(); } }
+
+        #region Commands
+        public ICommand HomeCommand { get; set; }
+        public ICommand DisksListCommand { get; set; }
+        public ICommand DiskDetailsCommand { get; set; }
+        public ICommand DisksTestCommand { get; set; }
+        public ICommand AboutCommand { get; set; }
+
+        private void Home(object obj)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            CurrentView = new HomeViewModel(SystemInfo);
+            AboutView = new AboutViewModel(View.Home);
+        }
+        private void DisksList(object obj)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            CurrentView = new ConnectedDisksViewModel(OpenUserControl);
+            AboutView = new AboutViewModel(View.ViewDisks);
+        }
+        private void DisksTest(object obj)
+        {
+            if (Application.Current.MainWindow.WindowState == WindowState.Minimized)
+            {
+                Application.Current.MainWindow.Show();
+                Application.Current.MainWindow.WindowState = WindowState.Normal;
+            }
+            CurrentView = new DiskSpeedTestViewModel();
+            AboutView = new AboutViewModel(View.Benchmark);
+        }
+
+        private void OpenUserControl(object obj, object param, object navigation)
+        {
+            
+            switch (obj.ToString())
+            {
+                case "DiskDetails":
+                    CurrentView = new DiskDetailsViewModel((Disk)param,(Action<object, object, object>)navigation);
+                    AboutView = new AboutViewModel(View.Smart);
+                    break;
+                case "DisksList":
+                    CurrentView = new ConnectedDisksViewModel(OpenUserControl);
+                    break;
+            }
+        }
+
+        #endregion
+
+        public MainWIndowViewModel()
+        {          
+            
+            #region Commands
+           
+            HomeCommand = new LambdaCommand(Home);
+            DisksListCommand = new LambdaCommand(DisksList);
+            DisksTestCommand = new LambdaCommand(DisksTest);
+            #endregion
+
+            SystemInfoService = new SystemInfoService();
+            Task.Run(() => { SystemInfo = SystemInfoService.GetOperatingSystemInfo(); }).Wait();
+
+            CurrentView = new HomeViewModel(SystemInfo);
+            AboutView = new AboutViewModel(View.Home);
+        }
+    }
+}
+
+

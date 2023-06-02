@@ -1,13 +1,9 @@
 ﻿using DiskBenchmark.Infrastructure.Common;
 using DiskBenchmark.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Management;
-using System.Text;
-using System.Threading.Tasks;
-using StorageSpeedMeter;
 using System.Windows;
 
 namespace DiskBenchmark.Services
@@ -15,9 +11,6 @@ namespace DiskBenchmark.Services
     internal class DisksService
     {
         public static readonly long FILE_SIZE = 1024 * 1024 * 1024;
-        
-
-
 
         public SmartDisk GetSmartInformation(Disk disk)
         {
@@ -93,10 +86,10 @@ namespace DiskBenchmark.Services
                                     attr.IsOK = failureImminent == false;
                                 }
                             }
-                            catch (Exception ex)
+                            catch 
                             {
                             // given key does not exist in attribute collection (attribute not in the dictionary of attributes)
-                               MessageBox.Show(ex.Message);
+                               //MessageBox.Show(ex.Message);
                             }
                         }
                     }
@@ -129,9 +122,9 @@ namespace DiskBenchmark.Services
 
                     #endregion
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                     
                     smartDisk.IsOK = false;
                 }
@@ -190,10 +183,10 @@ namespace DiskBenchmark.Services
                     disks.Add(newDisk);
                 }
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
            
             return disks;

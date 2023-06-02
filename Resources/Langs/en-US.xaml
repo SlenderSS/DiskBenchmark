@@ -1,4 +1,65 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="GeneralInfo">General information:</system:String>
+    <system:String x:Key="AboutPC">Operating System:</system:String>
+    <system:String x:Key="OS">Architecture:</system:String>
+    <system:String x:Key="SysMan">Manufacturer:</system:String>
+    <system:String x:Key="Model">Model:</system:String>
+    <system:String x:Key="CPU">CPU:</system:String>
+    <system:String x:Key="GPU">GPU:</system:String>
+    <system:String x:Key="BIOS">BIOS:</system:String>
     
+
+    <system:String x:Key="HomeBtn">Home</system:String>
+    <system:String x:Key="ViewDisksBtn">View Disks</system:String>
+    <system:String x:Key="BenchmarkBtn">Benchmark</system:String>
+
+    <system:String x:Key="ModelDisk">Model:</system:String>
+    <system:String x:Key="Serial">Serial:</system:String>
+    <system:String x:Key="Type">Type:</system:String>
+    <system:String x:Key="Infrastructure">Infrastructure:</system:String>
+    <system:String x:Key="Volume">Volume:</system:String>
+    <system:String x:Key="Patritions">Patritions:</system:String>
+    <system:String x:Key="Signature">Signature:</system:String>
+    <system:String x:Key="FirmRev">Firmware revision:</system:String>
+    <system:String x:Key="Sectors">Sectors:</system:String>
+    <system:String x:Key="IsSupport">S.M.A.R.T Support:</system:String>
+    <system:String x:Key="SMARTInfo">S.M.A.R.T Information:</system:String>
+    
+    
+    <system:String x:Key="StartBench">Start testing</system:String>
+
+    <system:String x:Key="SeqWrite">Sequential write:</system:String>
+    <system:String x:Key="SeqRead">Sequential read:</system:String>
+    <system:String x:Key="RandWrite">Random write:</system:String>
+    <system:String x:Key="RandRead">Random read:</system:String>
+    <system:String x:Key="MemCopy">Memory copy:</system:String>
+
+
+    <system:String x:Key="DevBy">DiskBenchmark has developed by Oleksandr Olkhovyk from KI-34</system:String>
+    
+    <system:String x:Key="AboutHome">
+        In this page displays 
+        information about your computer.
+    </system:String>
+
+
+    <system:String x:Key="AboutViewDisks">
+        Here user can view all connected physical drives, SSD, NVME, USB flash drives.
+        If double-click on one of the disks to get detailed information about the selected disk.
+    </system:String>
+
+    <system:String x:Key="AboutDiskDetails">
+        It shows detailed information about the disk and SMART information (if supported).
+    </system:String>
+
+    <system:String x:Key="AboutBenchmark">
+        Use this page to test the read and write speeds of your drive.
+        To start the test, select all available logical disks in the top list and then click the "Start Testing" button.
+        Wait for the test to complete and then you can test other drives (if any).
+    </system:String>
+    
+    <system:String x:Key="PS">*this text varies depending on the page</system:String>
 </ResourceDictionary>
