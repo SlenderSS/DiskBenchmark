@@ -17,6 +17,7 @@ namespace DiskBenchmark.Infrastructure.Common
                 throw new Exception($"Error converting hex value {hex0x0} to integer.", ex);
             }
         }
+
         public static SmartAttributeCollection GetSmartRegisters(string textRegisters)
         {
             var collection = new SmartAttributeCollection();

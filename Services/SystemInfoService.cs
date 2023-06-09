@@ -25,9 +25,7 @@ namespace DiskBenchmark.Services
             }
 
 
-            SelectQuery query = new SelectQuery(@"Select * from Win32_ComputerSystem");
-
-           
+            SelectQuery query = new SelectQuery(@"Select * from Win32_ComputerSystem");         
             using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
             {
                
@@ -37,8 +35,7 @@ namespace DiskBenchmark.Services
                     sysInfo.Model =  (obj["Model"] != null ? obj["Model"].ToString() : "None");
                 }
             }
-            ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
-           
+            ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");       
             foreach (ManagementObject obj in searcher1.Get())
             {
                 if (((string[])obj["BIOSVersion"]).Length > 1)

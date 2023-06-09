@@ -48,50 +48,43 @@
                                 <TextBlock Text="{DynamicResource ModelDisk}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Model}"  Style="{StaticResource Text_Style4 }" />
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Serial}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Serial}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Type}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Type}" Style="{StaticResource Text_Style4 }"/>
-
                             </StackPanel>
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Infrastructure}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.InfrastructureType}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Volume}" Style="{StaticResource Text_Style5}"/>
-                                <TextBlock Text="{Binding SmartDisk.Capasity, Converter={StaticResource ByteConverter}}" Style="{StaticResource Text_Style4 }"/>
+                                <TextBlock Text="{Binding SmartDisk.Capasity, Converter={StaticResource ByteConverter}}" 
+                                           Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Patritions}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Partitions}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Signature}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Signature}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource FirmRev}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.FirmwareRevision}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource Sectors}" Style="{StaticResource Text_Style5}"/>
                                 <TextBlock Text="{Binding SmartDisk.Sectors}" Style="{StaticResource Text_Style4 }"/>
                             </StackPanel>
-                            
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource IsSupport}" Style="{StaticResource Text_Style5}"/>
-                                <CheckBox  IsChecked="{Binding SmartDisk.IsSupported}" VerticalAlignment="Bottom"  Style="{StaticResource ToggleButtonCheckBox}"  IsEnabled="False"/>
+                                <CheckBox  IsChecked="{Binding SmartDisk.IsSupported}" VerticalAlignment="Bottom" 
+                                           Style="{StaticResource ToggleButtonCheckBox}"  IsEnabled="False"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -124,17 +117,14 @@
                                 <TextBlock Text="Worst" Style="{StaticResource Text_Style4}" Margin="5,0,5,0"/>
                                 <TextBlock Text="Threshold" Style="{StaticResource Text_Style4}" Margin="5,0,10,0"/>
                                 <TextBlock Text="Data" Style="{StaticResource Text_Style4}" Margin="0,0,15,0"/>
-
                             </StackPanel>
-
-
                             <DataGrid Grid.Row="1" ItemsSource="{Binding SmartDisk.SmartAttributes}" 
-                          Margin="10,10,10,10" 
-                                      AutoGenerateColumns="False"
-                          VerticalContentAlignment="Center"
-                              HeadersVisibility="Column"
-                                      IsReadOnly="True"
-                              >
+                                        Margin="10,10,10,10" 
+                                        AutoGenerateColumns="False"
+                                        VerticalContentAlignment="Center"
+                                        HeadersVisibility="Column"
+                                        IsReadOnly="True"
+                                         >
                                 <DataGrid.Template>
                                     <ControlTemplate>
                                         <ScrollViewer CanContentScroll="False">
@@ -148,8 +138,6 @@
                                     <DataGridTextColumn Width="60" Header="Worst" Binding="{Binding Worst}"/>
                                     <DataGridTextColumn Width="50" Header="Threshold" Binding="{Binding Threshold}"/>
                                     <DataGridTextColumn Width="*" Header="Data" Binding="{Binding Data}"/>
-
-
                                 </DataGrid.Columns>
 
                             </DataGrid>

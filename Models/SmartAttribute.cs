@@ -3,12 +3,12 @@
     internal class SmartAttribute : ViewModels.Base.ViewModel
     {
         public int Register { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } // Ім'я атрибуту
 
-        public int Current { get; set; }
-        public int Worst { get; set; }
-        public int Threshold { get; set; }
-        public int Data { get; set; }
+        public int Current { get; set; } // Поточне значення
+        public int Worst { get; set; } // Найгірше значення
+        public int Threshold { get; set; } // Порогове значення
+        public int Data { get; set; } // Значення атрибуту
         public bool IsOK { get; set; }
 
         public bool HasData

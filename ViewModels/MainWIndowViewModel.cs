@@ -28,7 +28,7 @@ namespace DiskBenchmark.ViewModels
 
         #endregion
 
-        #region Current view
+        #region About view
         private object _about;
         public object AboutView
         {
@@ -62,6 +62,8 @@ namespace DiskBenchmark.ViewModels
             CurrentView = new HomeViewModel(SystemInfo);
             AboutView = new AboutViewModel(View.Home);
         }
+
+
         private void DisksList(object obj)
         {
             if (Application.Current.MainWindow.WindowState == WindowState.Minimized)

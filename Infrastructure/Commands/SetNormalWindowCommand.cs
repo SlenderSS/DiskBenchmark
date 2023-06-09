@@ -2,7 +2,7 @@
 
 namespace DiskBenchmark.Infrastructure.Commands
 {
-    class SetNormalWindowCommand : Command
+    internal class SetNormalWindowCommand : Command
     {
         public override bool CanExecute(object parameter)
         {

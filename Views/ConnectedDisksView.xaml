@@ -31,8 +31,7 @@
                       SelectedItem="{Binding SelectedDisk}"
                       SelectionMode="Single"    
                       Style="{StaticResource MaterialDesignListBox}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"                
                       >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
@@ -50,9 +49,8 @@
                     </ControlTemplate>
                 </ListBox.Template>
                 <ListBox.ItemTemplate >
-                    <DataTemplate DataType="{x:Type models:Disk}">
-
-                        <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20"  Margin="0,20,0,20">
+                <DataTemplate DataType="{x:Type models:Disk}">
+                    <Border Background="#FF2D3136" BorderThickness="1" CornerRadius="20"  Margin="0,20,0,20">
                             <StackPanel Orientation="Vertical" Margin="20,20,10,5">
                                 <DockPanel>
                                     <Image Source="/Resources/Images/hdd.png" Style="{StaticResource Image_Style}" Visibility="Visible"/>

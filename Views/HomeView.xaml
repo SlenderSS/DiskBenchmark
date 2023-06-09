@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DiskBenchmark.Views"
              xmlns:vm="clr-namespace:DiskBenchmark.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="500" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance vm:HomeViewModel,IsDesignTimeCreatable=True}"
              Style="{StaticResource Page_Style}">
     <Grid>
@@ -20,9 +20,9 @@
                 <RowDefinition Height="80"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-                <TextBlock Text="{DynamicResource GeneralInfo}" Style="{StaticResource Text_Style}" FontSize="25"/>
+                <TextBlock Text="{DynamicResource GeneralInfo}" Style="{StaticResource Text_Style}" FontSize="24"/>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" >
-                    <StackPanel Orientation="Vertical" Margin="50,10,0,20" Width="220">
+                    <StackPanel Orientation="Vertical" Margin="20,10,0,20" Width="220">
                         <TextBlock Text="{DynamicResource AboutPC}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{DynamicResource OS}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{DynamicResource SysMan}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
@@ -30,16 +30,14 @@
                         <TextBlock Text="{DynamicResource CPU}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{DynamicResource GPU}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{DynamicResource BIOS}" FontSize="20" Margin="10" HorizontalAlignment="Right" Style="{StaticResource Text_Style3}"/>
-                        
-
                     </StackPanel>
                     <StackPanel  Orientation="Vertical" Margin="0,10,40,20">
                         <TextBlock Text="{Binding SystemInfo.SystemName}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{Binding SystemInfo.OSArchitecture}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{Binding SystemInfo.OSManufacturer}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{Binding SystemInfo.Model}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
-                        <TextBlock Text="{Binding SystemInfo.CPUName}" FontSize="22" Margin="0 10" Style="{StaticResource Text_Style3}"/>
-                        <TextBlock Text="{Binding SystemInfo.GPUName}" FontSize="22" Margin="0 10" Style="{StaticResource Text_Style3}"/>
+                        <TextBlock Text="{Binding SystemInfo.CPUName}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
+                        <TextBlock Text="{Binding SystemInfo.GPUName}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
                         <TextBlock Text="{Binding SystemInfo.BIOSVersion}" FontSize="20" Margin="0 10" Style="{StaticResource Text_Style3}"/>
                     </StackPanel>
                 </StackPanel>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DiskBenchmark.Models.Disk">
+    <Position X="1.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAABAAAAAAAAAEIAACACAAAEAAAAAA=</HashCode>
+      <FileName>Models\Disk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.DiskTestInformation">
+    <Position X="5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAE=</HashCode>
+      <FileName>Models\DiskTestInformation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.LogicalDisk">
+    <Position X="5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAgAAAAAAAAAAAAAAAAAAACAAIEAAAAAA=</HashCode>
+      <FileName>Models\LogicalDisk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.SmartAttribute">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAIAAAAAAAAAAAiAAAQAAAABABAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\SmartAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.SmartAttributeCollection">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SmartAttributeCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.Resource">
+    <Position X="3" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\SmartAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.SmartDisk">
+    <Position X="3" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAIAAAAABAgAEAIAADAAAAAAAQoAAAAAAAE=</HashCode>
+      <FileName>Models\SmartDisk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.Models.SystemInfo">
+    <Position X="6.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACACAAAAAAAAAAAAABAAAAAABAAAggBAAAAAAA=</HashCode>
+      <FileName>Models\SystemInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DiskBenchmark.Models.View">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAACAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Models\View.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

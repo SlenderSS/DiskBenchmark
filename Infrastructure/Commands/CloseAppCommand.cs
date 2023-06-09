@@ -2,7 +2,7 @@
 
 namespace DiskBenchmark.Infrastructure.Commands
 {
-    class CloseAppCommand : Command
+    internal class CloseAppCommand : Command
     {
         public override bool CanExecute(object parameter) => true;
 

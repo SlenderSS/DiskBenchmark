@@ -2,7 +2,7 @@
 
 namespace DiskBenchmark.Infrastructure.Commands
 {
-    class MinimizeWindowCommand : Command
+    internal class MinimizeWindowCommand : Command
     {
         public override bool CanExecute(object parameter) => true;
 

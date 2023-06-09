@@ -2,13 +2,11 @@
 {
     internal class LogicalDisk : ViewModels.Base.ViewModel
     {
-      
-        public string Caption { get; set; }
-        public string DeviceID { get; set;}
-        public string FileSystem { get; set; }
-
-        public ulong UsedSpace { get; set; }
-        public ulong Size { get; set; }
+        public string Caption { get; set; } // Назва логічного диску
+        public string DeviceID { get; set;} // Позиційний номер логічного диску
+        public string FileSystem { get; set; } // Файлова система 
+        public ulong UsedSpace { get; set; } // Використаний об'єм пам'яті логічого диску
+        public ulong Size { get; set; } // Загальний об'єм пам'яті логічого диску
     }
 
 }

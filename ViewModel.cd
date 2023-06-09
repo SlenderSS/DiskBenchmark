@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DiskBenchmark.ViewModels.Base.ViewModel">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Base\ViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.AboutViewModel">
+    <Position X="4" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ViewModels\AboutViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.ConnectedDisksViewModel">
+    <Position X="6.5" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAEAAAABAKAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ConnectedDisksViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.DiskDetailsViewModel">
+    <Position X="6.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAIAAAACAAAAAAAAAAAAAAAAQAAAABAAEAAAAA=</HashCode>
+      <FileName>ViewModels\DiskDetailsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.DiskSpeedTestViewModel">
+    <Position X="9.25" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AKAgAAgABAAICAgAEAAAAIGAAACIgAAAAAAAEACAAAA=</HashCode>
+      <FileName>ViewModels\DiskSpeedTestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.HomeViewModel">
+    <Position X="3.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\HomeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiskBenchmark.ViewModels.MainWIndowViewModel">
+    <Position X="1.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAADAAAAAGKAIAkCAAACQIQABAAGAAAAAAAgAAA=</HashCode>
+      <FileName>ViewModels\MainWIndowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DiskBenchmark.Models
 {
-    class SystemInfo : ViewModels.Base.ViewModel
+    internal class SystemInfo : ViewModels.Base.ViewModel
     {
-        public string SystemName { get; set; }
-        public string  OSArchitecture { get; set; }
-        public string OSManufacturer { get; set; }
-        public string Model { get; set; }
-        public string CPUName { get; set; }
-        public string BIOSVersion { get; set; }
-        public string GPUName { get; set; }
+        public string SystemName { get; set; } // Ім'я системи
+        public string  OSArchitecture { get; set; } // Архітектура системи
+        public string OSManufacturer { get; set; } // Виробник системи
+        public string Model { get; set; } // Модель комп'ютера
+        public string CPUName { get; set; } // Назва процесора
+        public string BIOSVersion { get; set; } // Версія БІОС
+        public string GPUName { get; set; } // Назва графічного процесора
     }
 }

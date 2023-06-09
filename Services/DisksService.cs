@@ -29,7 +29,6 @@ namespace DiskBenchmark.Services
                     smartDisk.Partitions = Convert.ToUInt16(manObj["Partitions"].ToString());
                     smartDisk.Signature = manObj["Signature"] != null ? manObj["Signature"].ToString(): "None information" ;
 
-
                     smartDisk.FirmwareRevision = manObj["FirmwareRevision"] != null ?  manObj["FirmwareRevision"].ToString() : "Missing info";         
                     smartDisk.Sectors = Convert.ToUInt32(manObj["TotalSectors"].ToString());
                 }
@@ -183,10 +182,9 @@ namespace DiskBenchmark.Services
                     disks.Add(newDisk);
                 }
             }
-            catch //(Exception ex)
+            catch 
             {
-
-                //MessageBox.Show(ex.Message);
+               
             }
            
             return disks;
