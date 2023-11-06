@@ -1,7 +1,7 @@
 # Description
-    A utility for displaying the status of a storage medium, as well as for testing the read/write and copy speeds. 
+A utility for displaying the status of a storage medium, as well as for testing the read/write and copy speeds. 
 # How to use?
-    First of all, you need to download .exe file from Releases secrtion and start one.
+First of all, you need to download .exe file from Releases secrtion and start one.
 # Program View
 The software solution looks like this:
 ## Home page
